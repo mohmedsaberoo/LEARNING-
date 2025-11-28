@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة المستقبل التعليمية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --neon-blue: #0ff0fc;
+            --neon-purple: #bc13fe;
+            --neon-cyan: #00f7ff;
+            --neon-pink: #ff00ff;
+            --dark-bg: #0a0a16;
+            --darker-bg: #050510;
+            --glass-bg: rgba(10, 15, 35, 0.6);
+            --glass-border: rgba(100, 200, 255, 0.2);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(28, 58, 173, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(188, 19, 254, 0.1) 0%, transparent 20%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Floating Particles Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            top: 0;
+            left: 0;
+        }
+
+        /* Header and Navigation */
+        header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 0;
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.2);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link:hover {
+            color: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content Sections */
+        section {
+            padding: 4rem 0;
+            display: none;
+        }
+
+        section.active {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* Glassmorphism Cards */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 247, 255, 0.1), rgba(188, 19, 254, 0.1));
+            z-index: -1;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 247, 255, 0.2);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            background: rgba(0, 247, 255, 0.1);
+            box-shadow: 0 0 15px var(--neon-cyan);
+            color: white;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+            border: none;
+            color: white;
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .question-number {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--neon-cyan);
+            font-size: 1.2rem;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .options-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .option {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .option:hover {
+            background: rgba(0, 247, 255, 0.1);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+        }
+
+        .option.selected {
+            background: rgba(0, 247, 255, 0.2);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .result-screen {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .score-display {
+            font-size: 4rem;
+            margin: 2rem 0;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 247, 255, 0.5);
+        }
+
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 247, 255, 0.1), rgba(188, 19, 254, 0.1));
+            z-index: -1;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 247, 255, 0.3);
+        }
+
+        .game-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .game-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Knowledge Cards */
+        .knowledge-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .knowledge-card {
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .knowledge-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 247, 255, 0.1), rgba(188, 19, 254, 0.1));
+            z-index: -1;
+        }
+
+        .knowledge-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 247, 255, 0.3);
+        }
+
+        .knowledge-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .knowledge-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            border: 3px solid var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan);
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        /* Information Section */
+        .info-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .info-tab {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .info-tab.active {
+            background: rgba(0, 247, 255, 0.1);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .info-content {
+            display: none;
+        }
+
+        .info-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass-border);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--neon-cyan);
+            transform: translateY(-5px);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background: var(--glass-bg);
+                backdrop-filter: blur(10px);
+                width: 80%;
+                height: calc(100vh - 70px);
+                transition: right 0.3s ease;
+                padding: 2rem;
+                border-left: 1px solid var(--glass-border);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .games-grid, .knowledge-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation Classes */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 247, 255, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 247, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 247, 255, 0); }
+        }
+
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan); }
+            to { box-shadow: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan), 0 0 45px var(--neon-cyan); }
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <span>منصة المستقبل التعليمية</span>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link" data-section="home">الرئيسية</a></li>
+                <li><a href="#" class="nav-link" data-section="quiz">اختبار المعرفة</a></li>
+                <li><a href="#" class="nav-link" data-section="games">الألعاب</a></li>
+                <li><a href="#" class="nav-link" data-section="knowledge">المعرفة</a></li>
+                <li><a href="#" class="nav-link" data-section="about">من أنا</a></li>
+                <li><a href="#" class="nav-link" data-section="information">المعلومات</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Home Section -->
+        <section id="home" class="active">
+            <div class="card text-center">
+                <h1 class="section-title">مرحبًا بك في منصة المستقبل التعليمية</h1>
+                <p>منصة تعليمية تفاعلية بتصميم مستقبلي تقدم لك اختبارات معرفية، ألعاب تعليمية، ودروس في البرمجة والتكنولوجيا.</p>
+                <div class="btn-container" style="margin-top: 2rem;">
+                    <a href="#" class="btn btn-primary" data-section="quiz">ابدأ الاختبار</a>
+                    <a href="#" class="btn" data-section="games">استكشف الألعاب</a>
+                </div>
+            </div>
+            
+            <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                <div class="card text-center">
+                    <i class="fas fa-question-circle" style="font-size: 3rem; color: var(--neon-cyan); margin-bottom: 1rem;"></i>
+                    <h3>اختبار المعرفة</h3>
+                    <p>اختبر معلوماتك مع 50 سؤال في مختلف المجالات</p>
+                </div>
+                <div class="card text-center">
+                    <i class="fas fa-gamepad" style="font-size: 3rem; color: var(--neon-cyan); margin-bottom: 1rem;"></i>
+                    <h3>الألعاب التعليمية</h3>
+                    <p>استمتع وتعلم مع مجموعة من الألعاب التفاعلية</p>
+                </div>
+                <div class="card text-center">
+                    <i class="fas fa-code" style="font-size: 3rem; color: var(--neon-cyan); margin-bottom: 1rem;"></i>
+                    <h3>تعلم البرمجة</h3>
+                    <p>ادرس HTML و JavaScript بطريقة تفاعلية</p>
+                </div>
+                <div class="card text-center">
+                    <i class="fas fa-info-circle" style="font-size: 3rem; color: var(--neon-cyan); margin-bottom: 1rem;"></i>
+                    <h3>معلومات تقنية</h3>
+                    <p>تعرف على أنظمة التشغيل وبيئات التطوير</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz">
+            <h2 class="section-title">اختبار المعرفة</h2>
+            <div class="quiz-container">
+                <div class="progress-bar">
+                    <div class="progress" id="quiz-progress"></div>
+                </div>
+                
+                <div class="question-number" id="question-number">السؤال 1 من 50</div>
+                <div class="question-text" id="question-text">ما هي لغة البرمجة المستخدمة في تطوير صفحات الويب التفاعلية؟</div>
+                
+                <div class="options-container" id="options-container">
+                    <!-- Options will be inserted by JavaScript -->
+                </div>
+                
+                <div class="quiz-controls">
+                    <button class="btn" id="prev-btn">السابق</button>
+                    <button class="btn btn-primary" id="next-btn">التالي</button>
+                </div>
+            </div>
+            
+            <div class="result-screen" id="result-screen" style="display: none;">
+                <h2 class="section-title">نتيجة الاختبار</h2>
+                <div class="score-display" id="final-score">0%</div>
+                <p id="result-message">مبروك! لقد أنهيت الاختبار بنجاح</p>
+                <button class="btn btn-primary" id="restart-quiz">إعادة الاختبار</button>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section id="games">
+            <h2 class="section-title">الألعاب التعليمية</h2>
+            <div class="games-grid">
+                <div class="game-card card">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3>لعبة الألغاز</h3>
+                    <p>اختبر ذكاءك في حل الألغاز المعقدة</p>
+                </div>
+                <div class="game-card card">
+                    <i class="fas fa-brain"></i>
+                    <h3>لعبة الذاكرة</h3>
+                    <p>تدرب على تحسين ذاكرتك مع هذه اللعبة</p>
+                </div>
+                <div class="game-card card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>اختبار السرعة</h3>
+                    <p>اختبر سرعة رد فعلك في هذه اللعبة</p>
+                </div>
+                <div class="game-card card">
+                    <i class="fas fa-chess-board"></i>
+                    <h3>لعبة الاستراتيجية</h3>
+                    <p>خطط واتخذ القرارات الصحيحة للفوز</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Knowledge Section -->
+        <section id="knowledge">
+            <h2 class="section-title">المعرفة</h2>
+            <div class="knowledge-cards">
+                <div class="knowledge-card card" data-topic="html">
+                    <i class="fab fa-html5"></i>
+                    <h3>تعلم HTML</h3>
+                    <p>ابدأ رحلتك في تعلم لغة ترميز النص الفائق</p>
+                </div>
+                <div class="knowledge-card card" data-topic="javascript">
+                    <i class="fab fa-js-square"></i>
+                    <h3>تعلم JavaScript</h3>
+                    <p>أتقن لغة البرمجة الأكثر شيوعًا في تطوير الويب</p>
+                </div>
+                <div class="knowledge-card card" data-topic="css">
+                    <i class="fab fa-css3-alt"></i>
+                    <h3>تعلم CSS</h3>
+                    <p>تعلم كيفية تنسيق وتصميم صفحات الويب</p>
+                </div>
+                <div class="knowledge-card card" data-topic="python">
+                    <i class="fab fa-python"></i>
+                    <h3>تعلم Python</h3>
+                    <p>اكتشف لغة البرمجة متعددة الاستخدامات وسهلة التعلم</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2 class="section-title">من أنا</h2>
+            <div class="about-content card">
+                <div class="profile-img">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>أبو صابر</h3>
+                <p style="margin-bottom: 1.5rem; font-size: 1.2rem;">مطور ويب ومصمم عمره 15 سنة</p>
+                <p>أنا شاب شغوف بالتكنولوجيا والبرمجة، أتعلم وأطور مهاراتي باستمرار. أسعى لإنشاء محتوى تعليمي مفيد وممتع للجميع. أحب تصميم واجهات المستخدم التفاعلية وتطوير تطبيقات الويب.</p>
+                <p style="margin-top: 1.5rem;">My name is Abu Saber, I'm a 15-year-old web developer and designer with a passion for creating interactive and futuristic digital experiences. I continuously learn and improve my skills in programming and design.</p>
+            </div>
+        </section>
+
+        <!-- Information Section -->
+        <section id="information">
+            <h2 class="section-title">المعلومات</h2>
+            
+            <div class="info-tabs">
+                <div class="info-tab active" data-tab="windows">ما هو Windows</div>
+                <div class="info-tab" data-tab="linux">ما هو Linux</div>
+                <div class="info-tab" data-tab="ide">ما هي بيئات التطوير</div>
+            </div>
+            
+            <div class="info-content active" id="windows-content">
+                <div class="card">
+                    <h3 style="color: var(--neon-cyan); margin-bottom: 1rem;">نظام التشغيل Windows</h3>
+                    <p>Windows هو نظام تشغيل رسومي طورته شركة Microsoft. يتميز بواجهة مستخدم رسومية سهلة الاستخدام، ودعم واسع للتطبيقات والأجهزة.</p>
+                    <p style="margin-top: 1rem;">أصدرت Microsoft أول نسخة من Windows في عام 1985، ومنذ ذلك الحين أصبح النظام الأكثر شيوعًا لأجهزة الكمبيوتر الشخصية حول العالم.</p>
+                </div>
+            </div>
+            
+            <div class="info-content" id="linux-content">
+                <div class="card">
+                    <h3 style="color: var(--neon-cyan); margin-bottom: 1rem;">نظام التشغيل Linux</h3>
+                    <p>Linux هو نظام تشغيل مفتوح المصدر يعتمد على نواة Linux. يتميز باستقراره وأمانه العالي، ويستخدم على نطاق واسع في الخوادم والأجهزة المضمنة.</p>
+                    <p style="margin-top: 1rem;">يأتي Linux بتوزيعات مختلفة مثل Ubuntu و Fedora و Debian، كل منها مصمم لاحتياجات محددة.</p>
+                </div>
+            </div>
+            
+            <div class="info-content" id="ide-content">
+                <div class="card">
+                    <h3 style="color: var(--neon-cyan); margin-bottom: 1rem;">بيئات التطوير المتكاملة (IDEs)</h3>
+                    <p>بيئة التطوير المتكاملة (IDE) هي برنامج يوفر أدوات شاملة للمطورين لكتابة وتصحيح واختبار البرمجيات.</p>
+                    <p style="margin-top: 1rem;">من أشهر بيئات التطوير: Visual Studio Code و IntelliJ IDEA و Eclipse. توفر هذه البيئات ميزات مثل تمييز الصياغة، والإكمال التلقائي، وتصحيح الأخطاء.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
+                <i class="fas fa-robot"></i>
+                <span>منصة المستقبل التعليمية</span>
+            </div>
+            <p>منصة تعليمية تفاعلية بتصميم مستقبلي</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+            </div>
+            <p>تم التطوير بواسطة أبو صابر © 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+            
+            // Section navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Hide mobile menu if open
+                    navMenu.classList.remove('active');
+                    
+                    // Get target section
+                    const targetSection = this.getAttribute('data-section');
+                    
+                    // Hide all sections
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    // Show target section
+                    document.getElementById(targetSection).classList.add('active');
+                });
+            });
+            
+            // Information tabs
+            const infoTabs = document.querySelectorAll('.info-tab');
+            const infoContents = document.querySelectorAll('.info-content');
+            
+            infoTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    infoTabs.forEach(t => t.classList.remove('active'));
+                    infoContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to current tab and content
+                    this.classList.add('active');
+                    document.getElementById(`${targetTab}-content`).classList.add('active');
+                });
+            });
+            
+            // Quiz functionality
+            const quizQuestions = [
+                {
+                    question: "ما هي لغة البرمجة المستخدمة في تطوير صفحات الويب التفاعلية؟",
+                    options: ["HTML", "CSS", "JavaScript", "Python"],
+                    correct: 2
+                },
+                {
+                    question: "أي من هذه العناصر يستخدم لإنشاء قائمة غير مرتبة في HTML؟",
+                    options: ["<ol>", "<ul>", "<li>", "<list>"],
+                    correct: 1
+                },
+                {
+                    question: "ما هي الوظيفة الأساسية لـ CSS؟",
+                    options: ["إضافة التفاعل إلى الصفحة", "تحديد هيكل الصفحة", "تنسيق مظهر الصفحة", "معالجة البيانات"],
+                    correct: 2
+                },
+                {
+                    question: "أي من هذه ليس نظام تشغيل؟",
+                    options: ["Windows", "Linux", "Photoshop", "macOS"],
+                    correct: 2
+                },
+                {
+                    question: "ما هي لغة الترميز المستخدمة لإنشاء صفحات الويب؟",
+                    options: ["Java", "HTML", "C++", "Swift"],
+                    correct: 1
+                }
+            ];
+            
+            // Add more questions to reach 50
+            for (let i = quizQuestions.length; i < 50; i++) {
+                quizQuestions.push({
+                    question: `سؤال تجريبي ${i + 1}: ما هو الجواب الصحيح؟`,
+                    options: ["الخيار 1", "الخيار 2", "الخيار 3", "الخيار 4"],
+                    correct: Math.floor(Math.random() * 4)
+                });
+            }
+            
+            let currentQuestion = 0;
+            let userAnswers = new Array(quizQuestions.length).fill(null);
+            const questionNumber = document.getElementById('question-number');
+            const questionText = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const quizProgress = document.getElementById('quiz-progress');
+            const resultScreen = document.getElementById('result-screen');
+            const finalScore = document.getElementById('final-score');
+            const resultMessage = document.getElementById('result-message');
+            const restartQuiz = document.getElementById('restart-quiz');
+            
+            function loadQuestion() {
+                const question = quizQuestions[currentQuestion];
+                questionNumber.textContent = `السؤال ${currentQuestion + 1} من ${quizQuestions.length}`;
+                questionText.textContent = question.question;
+                
+                // Update progress bar
+                quizProgress.style.width = `${((currentQuestion + 1) / quizQuestions.length) * 100}%`;
+                
+                // Clear options container
+                optionsContainer.innerHTML = '';
+                
+                // Add options
+                question.options.forEach((option, index) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.classList.add('option');
+                    if (userAnswers[currentQuestion] === index) {
+                        optionElement.classList.add('selected');
+                    }
+                    optionElement.textContent = option;
+                    optionElement.addEventListener('click', () => selectOption(index));
+                    optionsContainer.appendChild(optionElement);
+                });
+                
+                // Update buttons
+                prevBtn.disabled = currentQuestion === 0;
+                nextBtn.textContent = currentQuestion === quizQuestions.length - 1 ? 'إنهاء الاختبار' : 'التالي';
+            }
+            
+            function selectOption(optionIndex) {
+                userAnswers[currentQuestion] = optionIndex;
+                loadQuestion();
+            }
+            
+            function showResults() {
+                // Calculate score
+                let score = 0;
+                quizQuestions.forEach((question, index) => {
+                    if (userAnswers[index] === question.correct) {
+                        score++;
+                    }
+                });
+                
+                const percentage = Math.round((score / quizQuestions.length) * 100);
+                finalScore.textContent = `${percentage}%`;
+                
+                // Set result message based on score
+                if (percentage >= 90) {
+                    resultMessage.textContent = 'ممتاز! لديك معرفة رائعة في هذا المجال.';
+                } else if (percentage >= 70) {
+                    resultMessage.textContent = 'جيد جدًا! لديك معرفة جيدة ولكن يمكنك التحسين.';
+                } else if (percentage >= 50) {
+                    resultMessage.textContent = 'مقبول! تحتاج إلى مراجعة بعض المعلومات.';
+                } else {
+                    resultMessage.textContent = 'ضعيف! ننصحك بالدراسة أكثر قبل إعادة الاختبار.';
+                }
+                
+                // Hide quiz and show results
+                document.querySelector('.quiz-container').style.display = 'none';
+                resultScreen.style.display = 'block';
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                if (currentQuestion > 0) {
+                    currentQuestion--;
+                    loadQuestion();
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if (currentQuestion < quizQuestions.length - 1) {
+                    currentQuestion++;
+                    loadQuestion();
+                } else {
+                    showResults();
+                }
+            });
+            
+            restartQuiz.addEventListener('click', () => {
+                currentQuestion = 0;
+                userAnswers = new Array(quizQuestions.length).fill(null);
+                document.querySelector('.quiz-container').style.display = 'block';
+                resultScreen.style.display = 'none';
+                loadQuestion();
+            });
+            
+            // Initialize quiz
+            loadQuestion();
+            
+            // Initialize particles background
+            particlesJS("particles-js", {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: "#0ff0fc" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#bc13fe",
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "repulse" },
+                        onclick: { enable: true, mode: "push" },
+                        resize: true
+                    }
+                }
+            });
+        });
+    </script>
+    
+    <!-- Particles.js library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</body>
+</html>
