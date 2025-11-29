@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية البرمجة - تعلم البرمجة والهاردوير</title>
-    <meta name="description" content="موقع تعليمي شامل للبرمجة والهاردوير باللغة العربية، مع دروس تفاعلية وأسئلة تقييم">
+    <title>الحاسبة المتقدمة - أكاديمية البرمجة</title>
+    <meta name="description" content="آلة حاسبة ويب متقدمة تدعم العمليات الحسابية الأساسية والمتقدمة مع واجهة مستخدم تفاعلية">
     <style>
         /* Reset and Base Styles */
         * {
@@ -225,31 +225,144 @@
             color: var(--dark);
         }
 
-        /* Cards and Panels */
-        .card {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            transition: var(--transition);
+        /* Calculator Styles */
+        .calculator-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        .card:hover {
+        .calculator {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .calculator-display {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .calculation {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            min-height: 1.5rem;
+            word-break: break-all;
+        }
+
+        .result {
+            color: var(--primary);
+            font-size: 2rem;
+            font-weight: bold;
+            word-break: break-all;
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+        }
+
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.7rem;
+        }
+
+        .calc-btn {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 1rem 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calc-btn:hover {
+            background: rgba(0, 243, 255, 0.1);
             border-color: var(--primary);
-            transform: translateY(-5px);
+            transform: translateY(-2px);
+        }
+
+        .calc-btn:active {
+            transform: translateY(1px);
+        }
+
+        .operator {
+            color: var(--accent);
+            border-color: rgba(0, 255, 136, 0.3);
+        }
+
+        .operator:hover {
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .memory {
+            color: var(--secondary);
+            border-color: rgba(255, 0, 255, 0.3);
+        }
+
+        .memory:hover {
+            background: rgba(255, 0, 255, 0.1);
+        }
+
+        .equals {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--accent);
+            border-color: var(--accent);
+            grid-column: span 2;
+        }
+
+        .equals:hover {
+            background: rgba(0, 255, 136, 0.3);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .clear {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+        }
+
+        .clear:hover {
+            background: rgba(255, 0, 0, 0.3);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .zero {
+            grid-column: span 2;
+        }
+
+        /* Calculator Info */
+        .calculator-info {
+            flex: 1;
+            min-width: 300px;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
             margin-top: 2rem;
         }
 
         .feature-card {
             background: rgba(0, 0, 0, 0.3);
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 10px;
             border: 1px solid var(--glass-border);
             text-align: center;
@@ -258,99 +371,61 @@
 
         .feature-card:hover {
             border-color: var(--accent);
-            transform: translateY(-10px);
+            transform: translateY(-5px);
         }
 
         .feature-icon {
-            font-size: 3rem;
+            font-size: 2rem;
             margin-bottom: 1rem;
             color: var(--primary);
         }
 
-        /* Navigation Cards */
-        .nav-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .nav-card {
+        /* Code Explanation */
+        .code-explanation {
+            margin-top: 3rem;
             background: rgba(0, 0, 0, 0.3);
-            padding: 2rem;
             border-radius: 10px;
+            padding: 1.5rem;
             border: 1px solid var(--glass-border);
-            text-align: center;
-            transition: var(--transition);
-            text-decoration: none;
-            color: var(--text);
         }
 
-        .nav-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: var(--neon-glow);
-        }
-
-        .nav-card h3 {
+        .code-explanation h3 {
             margin-bottom: 1rem;
             color: var(--accent);
         }
 
-        .nav-card p {
-            color: var(--text-secondary);
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
             font-size: 0.9rem;
+            color: var(--text);
+            overflow-x: auto;
+            direction: ltr;
+            text-align: left;
         }
 
-        /* Roadmap */
-        .roadmap {
-            position: relative;
-            padding: 2rem 0;
+        .code-keyword {
+            color: #ff79c6;
         }
 
-        .roadmap::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 50%;
-            transform: translateX(50%);
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, var(--primary), transparent);
+        .code-function {
+            color: #50fa7b;
         }
 
-        .roadmap-item {
-            position: relative;
-            margin-bottom: 3rem;
-            width: 50%;
-            padding: 1.5rem;
+        .code-variable {
+            color: #8be9fd;
         }
 
-        .roadmap-item:nth-child(odd) {
-            margin-right: auto;
+        .code-string {
+            color: #f1fa8c;
         }
 
-        .roadmap-item:nth-child(even) {
-            margin-left: auto;
-        }
-
-        .roadmap-item::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 15px;
-            height: 15px;
-            background: var(--accent);
-            border-radius: 50%;
-            transform: translateY(-50%);
-        }
-
-        .roadmap-item:nth-child(odd)::before {
-            left: -7.5px;
-        }
-
-        .roadmap-item:nth-child(even)::before {
-            right: -7.5px;
+        .code-comment {
+            color: #6272a4;
         }
 
         /* Footer */
@@ -475,31 +550,18 @@
                 font-size: 1.5rem;
             }
 
-            .features-grid {
-                grid-template-columns: 1fr;
+            .calculator-buttons {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0.5rem;
             }
 
-            .nav-cards {
-                grid-template-columns: 1fr;
+            .calc-btn {
+                padding: 0.8rem 0.3rem;
+                font-size: 1rem;
             }
 
-            .roadmap::before {
-                right: 20px;
-            }
-
-            .roadmap-item {
-                width: calc(100% - 40px);
-            }
-
-            .roadmap-item:nth-child(odd),
-            .roadmap-item:nth-child(even) {
-                margin-right: 0;
-                margin-left: auto;
-            }
-
-            .roadmap-item::before {
-                right: -7.5px;
-                left: auto;
+            .calculator-container {
+                flex-direction: column;
             }
         }
 
@@ -554,162 +616,123 @@
     <main>
         <!-- Hero Section -->
         <section class="hero">
-            <h1 class="floating">أكاديمية البرمجة</h1>
-            <p>مرحباً بك في مستقبل التعليم التقني! موقع شامل لتعلم البرمجة والهاردوير باللغة العربية، مع دروس تفاعلية وأسئلة تقييم ومسارات تعليمية مخصصة.</p>
-            <a href="programming.html" class="btn btn-accent">ابدأ التعلم الآن</a>
+            <h1 class="floating">الحاسبة المتقدمة</h1>
+            <p>آلة حاسبة ويب متكاملة تدعم العمليات الحسابية الأساسية والمتقدمة مع واجهة مستخدم تفاعلية</p>
         </section>
 
-        <!-- Navigation Cards Section -->
+        <!-- Calculator Section -->
         <section>
-            <h2 class="text-center">استكشف الأكاديمية</h2>
-            <p class="text-center">انتقل بسهولة بين أقسام الموقع المختلفة لتبدأ رحلتك التعليمية</p>
-            
-            <div class="nav-cards">
-                <a href="programming.html" class="nav-card">
-                    <div class="feature-icon">💻</div>
-                    <h3>لغات البرمجة</h3>
-                    <p>تعلم أهم لغات البرمجة مع شروح مفصلة وأمثلة عملية</p>
-                    <div class="btn" style="margin-top: 1rem;">استكشف الآن</div>
-                </a>
+            <h2 class="text-center">جرب الحاسبة الآن</h2>
+            <div class="calculator-container">
+                <div class="calculator">
+                    <div class="calculator-display">
+                        <div class="calculation" id="calculation">0</div>
+                        <div class="result" id="result">0</div>
+                    </div>
+                    <div class="calculator-buttons">
+                        <!-- Memory Functions -->
+                        <button class="calc-btn memory" data-action="memory-clear">MC</button>
+                        <button class="calc-btn memory" data-action="memory-recall">MR</button>
+                        <button class="calc-btn memory" data-action="memory-add">M+</button>
+                        <button class="calc-btn memory" data-action="memory-subtract">M-</button>
+                        <button class="calc-btn clear" data-action="clear">C</button>
+                        
+                        <!-- Advanced Functions -->
+                        <button class="calc-btn operator" data-action="percentage">%</button>
+                        <button class="calc-btn operator" data-action="square-root">√</button>
+                        <button class="calc-btn operator" data-action="power">x²</button>
+                        <button class="calc-btn operator" data-action="divide">/</button>
+                        
+                        <!-- Numbers -->
+                        <button class="calc-btn" data-number="7">7</button>
+                        <button class="calc-btn" data-number="8">8</button>
+                        <button class="calc-btn" data-number="9">9</button>
+                        <button class="calc-btn operator" data-action="multiply">×</button>
+                        
+                        <button class="calc-btn" data-number="4">4</button>
+                        <button class="calc-btn" data-number="5">5</button>
+                        <button class="calc-btn" data-number="6">6</button>
+                        <button class="calc-btn operator" data-action="subtract">-</button>
+                        
+                        <button class="calc-btn" data-number="1">1</button>
+                        <button class="calc-btn" data-number="2">2</button>
+                        <button class="calc-btn" data-number="3">3</button>
+                        <button class="calc-btn operator" data-action="add">+</button>
+                        
+                        <button class="calc-btn zero" data-number="0">0</button>
+                        <button class="calc-btn" data-action="decimal">.</button>
+                        <button class="calc-btn equals" data-action="calculate">=</button>
+                    </div>
+                </div>
                 
-                <a href="hardware.html" class="nav-card">
-                    <div class="feature-icon">🔧</div>
-                    <h3>الهاردوير</h3>
-                    <p>افهم مكونات الكمبيوتر وطريقة عملها وصيانتها</p>
-                    <div class="btn" style="margin-top: 1rem;">استكشف الآن</div>
-                </a>
-                
-                <a href="projects.html" class="nav-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>المشاريع</h3>
-                    <p>استكشف مشاريع برمجية عملية وتعلم من خلال التطبيق</p>
-                    <div class="btn" style="margin-top: 1rem;">استكشف الآن</div>
-                </a>
-                
-                <a href="learning-paths.html" class="nav-card">
-                    <div class="feature-icon">🗺️</div>
-                    <h3>المسارات التعليمية</h3>
-                    <p>اختر مسارك التعليمي المناسب لمستواك وأهدافك</p>
-                    <div class="btn" style="margin-top: 1rem;">استكشف الآن</div>
-                </a>
-                
-                <a href="questions.html" class="nav-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>الأسئلة التفاعلية</h3>
-                    <p>اختبر معرفتك من خلال أسئلة تفاعلية متنوعة</p>
-                    <div class="btn" style="margin-top: 1rem;">ابدأ الاختبار</div>
-                </a>
-                
-                <a href="about.html" class="nav-card">
-                    <div class="feature-icon">👤</div>
-                    <h3>من أنا</h3>
-                    <p>تعرف على مؤسس الأكاديمية وخبراته وطرق التواصل</p>
-                    <div class="btn" style="margin-top: 1rem;">تعرف أكثر</div>
-                </a>
+                <div class="calculator-info">
+                    <h3>مميزات الحاسبة</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">➕</div>
+                            <h4>عمليات أساسية</h4>
+                            <p>الجمع، الطرح، الضرب، والقسمة</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔢</div>
+                            <h4>عمليات متقدمة</h4>
+                            <p>النسب المئوية، الأسس، والجذور التربيعية</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💾</div>
+                            <h4>ذاكرة الحاسبة</h4>
+                            <p>M+, M-, MR, MC لحفظ واسترجاع القيم</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⌨️</div>
+                            <h4>دعم لوحة المفاتيح</h4>
+                            <p>يمكنك استخدام لوحة المفاتيح للإدخال</p>
+                        </div>
+                    </div>
+                    
+                    <div class="code-explanation">
+                        <h3>كيف تعمل الحاسبة؟</h3>
+                        <p>تعتمد الحاسبة على JavaScript لمعالجة العمليات الحسابية. إليك مثال على دالة الجمع:</p>
+                        <div class="code-block">
+                            <span class="code-keyword">function</span> <span class="code-function">add</span>(a, b) {<br>
+                            &nbsp;&nbsp;<span class="code-keyword">return</span> a + b;<br>
+                            }
+                        </div>
+                        <p>يتم تخزين القيم المدخلة في متغيرات وتنفيذ العمليات بناءً على الأزرار التي يتم الضغط عليها.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Features Section -->
+        <!-- Learning Section -->
         <section>
-            <h2 class="text-center">مميزات الأكاديمية</h2>
+            <h2 class="text-center">ما ستتعلمه من هذا المشروع</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">💻</div>
-                    <h3>تعلم البرمجة</h3>
-                    <p>دروس شاملة للغات البرمجة الرئيسية مع أمثلة عملية وتطبيقات حقيقية</p>
+                    <div class="feature-icon">🎯</div>
+                    <h4>معالجة الأحداث</h4>
+                    <p>كيفية التعامل مع أحداث النقر والإدخال من المستخدم</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔧</div>
-                    <h3>فهم الهاردوير</h3>
-                    <p>شرح مفصل لمكونات الكمبيوتر وصيانتها وطريقة عملها</p>
+                    <div class="feature-icon">🧮</div>
+                    <h4>المنطق البرمجي</h4>
+                    <p>بناء خوارزميات للعمليات الحسابية المعقدة</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>اختبار المعرفة</h3>
-                    <p>أسئلة تفاعلية وتقييمات لقياس تقدمك في رحلة التعلم</p>
+                    <div class="feature-icon">🎨</div>
+                    <h4>تصميم الواجهات</h4>
+                    <p>إنشاء واجهات مستخدم جذابة وسهلة الاستخدام</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>مسارات تعليمية</h3>
-                    <p>خطط دراسية منظمة تناسب جميع المستويات والأهداف</p>
+                    <div class="feature-icon">💾</div>
+                    <h4>إدارة الحالة</h4>
+                    <p>تتبع حالة التطبيق وإدارة البيانات المدخلة</p>
                 </div>
             </div>
-        </section>
-
-        <!-- Roadmap Section -->
-        <section>
-            <h2 class="text-center">خارطة التعلم</h2>
-            <div class="roadmap">
-                <div class="roadmap-item">
-                    <h3>المرحلة الأولى: الأساسيات</h3>
-                    <p>تعلم أساسيات البرمجة، HTML، CSS، والمنطق البرمجي</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>المرحلة الثانية: البرمجة المتقدمة</h3>
-                    <p>تعمق في JavaScript، Python، وقواعد البيانات</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>المرحلة الثالثة: التخصص</h3>
-                    <p>اختر تخصصك: تطوير الويب، تطبيقات الموبايل، أو علم البيانات</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>المرحلة الرابعة: المشاريع</h3>
-                    <p>بناء مشاريع حقيقية وتطوير محفظة أعمالك</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- AI Assistant Section -->
-        <section>
-            <h2 class="text-center">مساعد الذكاء الاصطناعي</h2>
-            <div class="card glass text-center">
-                <h3>🤖 مساعد التعلم الذكي</h3>
-                <p>استفد من مساعد الذكاء الاصطناعي المدمج في الأكاديمية للحصول على:</p>
-                <ul style="text-align: right; margin: 1rem 0;">
-                    <li>إجابات فورية على استفساراتك البرمجية</li>
-                    <li>تصحيح الأخطاء في الكود وشرحها</li>
-                    <li>مقترحات لتحسين أداء التطبيقات</li>
-                    <li>توصيات شخصية لمحتوى تعليمي</li>
-                </ul>
-                <button class="btn mt-2">تفعيل المساعد الذكي</button>
-            </div>
-        </section>
-        
-        <!-- Quick Navigation Section -->
-        <section>
-            <h2 class="text-center">روابط سريعة</h2>
-            <p class="text-center">انتقل بسرعة إلى الأقسام الرئيسية في الموقع</p>
             
-            <div class="nav-cards">
-                <a href="programming.html#javascript" class="nav-card">
-                    <h3>JavaScript</h3>
-                    <p>ابدأ بتعلم لغة البرمجة الأشهر لتطوير الويب</p>
-                </a>
-                
-                <a href="programming.html#python" class="nav-card">
-                    <h3>Python</h3>
-                    <p>تعلم لغة البرمجة متعددة الاستخدامات</p>
-                </a>
-                
-                <a href="hardware.html#cpu" class="nav-card">
-                    <h3>المعالج (CPU)</h3>
-                    <p>افهم عقل الكمبيوتر وكيف يعمل</p>
-                </a>
-                
-                <a href="projects.html" class="nav-card">
-                    <h3>المشاريع</h3>
-                    <p>استكشف مشاريع عملية لتطبيق ما تعلمته</p>
-                </a>
-                
-                <a href="learning-paths.html" class="nav-card">
-                    <h3>المسارات التعليمية</h3>
-                    <p>اختر المسار التعليمي المناسب لك</p>
-                </a>
-                
-                <a href="questions.html" class="nav-card">
-                    <h3>اختبر نفسك</h3>
-                    <p>ابدأ اختبار المعرفة فوراً</p>
-                </a>
+            <div class="text-center mt-2">
+                <a href="projects.html" class="btn">عودة إلى المشاريع</a>
+                <a href="#" class="btn btn-accent">تحميل الكود المصدري</a>
             </div>
         </section>
     </main>
@@ -739,20 +762,243 @@
             hamburger.classList.toggle('active');
         });
 
-        // Smooth Scrolling for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    // Close mobile menu if open
-                    navLinks.classList.remove('active');
+        // Calculator Logic
+        class Calculator {
+            constructor() {
+                this.currentOperand = '0';
+                this.previousOperand = '';
+                this.operation = undefined;
+                this.memory = 0;
+                this.updateDisplay();
+            }
+
+            clear() {
+                this.currentOperand = '0';
+                this.previousOperand = '';
+                this.operation = undefined;
+            }
+
+            delete() {
+                this.currentOperand = this.currentOperand.toString().slice(0, -1);
+                if (this.currentOperand === '') {
+                    this.currentOperand = '0';
                 }
+            }
+
+            appendNumber(number) {
+                if (number === '.' && this.currentOperand.includes('.')) return;
+                if (this.currentOperand === '0' && number !== '.') {
+                    this.currentOperand = number;
+                } else {
+                    this.currentOperand = this.currentOperand.toString() + number.toString();
+                }
+            }
+
+            chooseOperation(operation) {
+                if (this.currentOperand === '') return;
+                if (this.previousOperand !== '') {
+                    this.calculate();
+                }
+                this.operation = operation;
+                this.previousOperand = this.currentOperand;
+                this.currentOperand = '';
+            }
+
+            calculate() {
+                let computation;
+                const prev = parseFloat(this.previousOperand);
+                const current = parseFloat(this.currentOperand);
+                if (isNaN(prev) || isNaN(current)) return;
+                
+                switch (this.operation) {
+                    case '+':
+                        computation = prev + current;
+                        break;
+                    case '-':
+                        computation = prev - current;
+                        break;
+                    case '×':
+                        computation = prev * current;
+                        break;
+                    case '/':
+                        computation = prev / current;
+                        break;
+                    case '%':
+                        computation = prev % current;
+                        break;
+                    case 'x²':
+                        computation = Math.pow(prev, current);
+                        break;
+                    default:
+                        return;
+                }
+                
+                this.currentOperand = computation.toString();
+                this.operation = undefined;
+                this.previousOperand = '';
+            }
+
+            // Advanced Operations
+            percentage() {
+                this.currentOperand = (parseFloat(this.currentOperand) / 100).toString();
+            }
+
+            squareRoot() {
+                this.currentOperand = Math.sqrt(parseFloat(this.currentOperand)).toString();
+            }
+
+            power() {
+                this.currentOperand = Math.pow(parseFloat(this.currentOperand), 2).toString();
+            }
+
+            // Memory Functions
+            memoryClear() {
+                this.memory = 0;
+            }
+
+            memoryRecall() {
+                this.currentOperand = this.memory.toString();
+            }
+
+            memoryAdd() {
+                this.memory += parseFloat(this.currentOperand);
+            }
+
+            memorySubtract() {
+                this.memory -= parseFloat(this.currentOperand);
+            }
+
+            getDisplayNumber(number) {
+                const stringNumber = number.toString();
+                const integerDigits = parseFloat(stringNumber.split('.')[0]);
+                const decimalDigits = stringNumber.split('.')[1];
+                let integerDisplay;
+                
+                if (isNaN(integerDigits)) {
+                    integerDisplay = '';
+                } else {
+                    integerDisplay = integerDigits.toLocaleString('en', { maximumFractionDigits: 0 });
+                }
+                
+                if (decimalDigits != null) {
+                    return `${integerDisplay}.${decimalDigits}`;
+                } else {
+                    return integerDisplay;
+                }
+            }
+
+            updateDisplay() {
+                const calculationElement = document.getElementById('calculation');
+                const resultElement = document.getElementById('result');
+                
+                resultElement.innerText = this.getDisplayNumber(this.currentOperand);
+                
+                if (this.operation != null) {
+                    calculationElement.innerText = 
+                        `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;
+                } else {
+                    calculationElement.innerText = '';
+                }
+            }
+        }
+
+        // Initialize Calculator
+        const calculator = new Calculator();
+
+        // Event Listeners for Calculator Buttons
+        document.querySelectorAll('.calc-btn[data-number]').forEach(button => {
+            button.addEventListener('click', () => {
+                calculator.appendNumber(button.getAttribute('data-number'));
+                calculator.updateDisplay();
             });
+        });
+
+        document.querySelectorAll('.calc-btn[data-action]').forEach(button => {
+            button.addEventListener('click', () => {
+                const action = button.getAttribute('data-action');
+                
+                switch (action) {
+                    case 'add':
+                    case 'subtract':
+                    case 'multiply':
+                    case 'divide':
+                    case 'percentage':
+                    case 'power':
+                        calculator.chooseOperation(
+                            action === 'add' ? '+' :
+                            action === 'subtract' ? '-' :
+                            action === 'multiply' ? '×' :
+                            action === 'divide' ? '/' :
+                            action === 'percentage' ? '%' :
+                            action === 'power' ? 'x²' : ''
+                        );
+                        break;
+                    case 'calculate':
+                        calculator.calculate();
+                        break;
+                    case 'clear':
+                        calculator.clear();
+                        break;
+                    case 'decimal':
+                        calculator.appendNumber('.');
+                        break;
+                    case 'square-root':
+                        calculator.squareRoot();
+                        break;
+                    case 'memory-clear':
+                        calculator.memoryClear();
+                        break;
+                    case 'memory-recall':
+                        calculator.memoryRecall();
+                        break;
+                    case 'memory-add':
+                        calculator.memoryAdd();
+                        break;
+                    case 'memory-subtract':
+                        calculator.memorySubtract();
+                        break;
+                }
+                
+                calculator.updateDisplay();
+            });
+        });
+
+        // Keyboard Support
+        document.addEventListener('keydown', event => {
+            if (event.key >= '0' && event.key <= '9') {
+                calculator.appendNumber(event.key);
+                calculator.updateDisplay();
+            }
+            if (event.key === '.') {
+                calculator.appendNumber('.');
+                calculator.updateDisplay();
+            }
+            if (event.key === '+' || event.key === '-') {
+                calculator.chooseOperation(event.key);
+                calculator.updateDisplay();
+            }
+            if (event.key === '*') {
+                calculator.chooseOperation('×');
+                calculator.updateDisplay();
+            }
+            if (event.key === '/') {
+                event.preventDefault();
+                calculator.chooseOperation('/');
+                calculator.updateDisplay();
+            }
+            if (event.key === 'Enter' || event.key === '=') {
+                event.preventDefault();
+                calculator.calculate();
+                calculator.updateDisplay();
+            }
+            if (event.key === 'Escape') {
+                calculator.clear();
+                calculator.updateDisplay();
+            }
+            if (event.key === 'Backspace') {
+                calculator.delete();
+                calculator.updateDisplay();
+            }
         });
 
         // Cyber Canvas Animation

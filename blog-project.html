@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة المدونات - أكاديمية البرمجة</title>
+    <meta name="description" content="منصة نشر محتوى كاملة تمكن المستخدمين من كتابة ومشاركة المقالات">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00f3ff;
+            --secondary: #ff00ff;
+            --accent: #00ff88;
+            --dark: #0a0a1a;
+            --darker: #050510;
+            --text: #e0e0ff;
+            --text-secondary: #a0a0c0;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Background Canvas */
+        #cyberCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-right: 3px solid var(--primary);
+            padding-right: 1rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(10, 10, 26, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            margin: 3px 0;
+            transition: var(--transition);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        section:hover {
+            border-color: var(--primary);
+            box-shadow: var(--neon-glow);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: var(--neon-glow);
+        }
+
+        .btn-accent {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background: var(--accent);
+            color: var(--dark);
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Blog Demo */
+        .blog-demo {
+            margin-top: 2rem;
+        }
+
+        .demo-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .demo-sidebar {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+        }
+
+        .demo-main {
+            flex: 3;
+            min-width: 300px;
+        }
+
+        .categories-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .categories-list li {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .categories-list li:hover {
+            background: rgba(0, 243, 255, 0.1);
+        }
+
+        .categories-list li.active {
+            background: rgba(0, 243, 255, 0.2);
+            border-right: 3px solid var(--primary);
+        }
+
+        .popular-posts {
+            margin-top: 2rem;
+        }
+
+        .popular-post {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 0.7rem;
+            border-radius: 5px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .popular-post:hover {
+            background: rgba(0, 243, 255, 0.1);
+        }
+
+        .post-thumbnail {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .post-content h4 {
+            margin-bottom: 0.3rem;
+            color: var(--accent);
+        }
+
+        .post-content p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .blog-posts {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .blog-post {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .blog-post:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--neon-glow);
+        }
+
+        .post-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .post-tag {
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .post-body {
+            padding: 1.5rem;
+        }
+
+        .post-excerpt {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn:hover {
+            color: var(--primary);
+        }
+
+        .comments-section {
+            margin-top: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .comment {
+            padding: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .comment:last-child {
+            border-bottom: none;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .comment-date {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .comment-form {
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 5px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* Technologies Section */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tech-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .tech-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* Code Explanation */
+        .code-explanation {
+            margin-top: 3rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .code-explanation h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text);
+            overflow-x: auto;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .code-keyword {
+            color: #ff79c6;
+        }
+
+        .code-function {
+            color: #50fa7b;
+        }
+
+        .code-variable {
+            color: #8be9fd;
+        }
+
+        .code-string {
+            color: #f1fa8c;
+        }
+
+        .code-comment {
+            color: #6272a4;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 26, 0.9);
+            border-top: 1px solid var(--glass-border);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+        .social-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-2 {
+            margin-bottom: 2rem;
+        }
+
+        .mt-2 {
+            margin-top: 2rem;
+        }
+
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .neon-text {
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(10, 10, 26, 0.95);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            main {
+                padding: 1rem;
+                margin-top: 70px;
+            }
+
+            section {
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .demo-container {
+                flex-direction: column;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Canvas -->
+    <canvas id="cyberCanvas"></canvas>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">أكاديمية البرمجة</a>
+            <ul class="nav-links">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="programming.html">لغات البرمجة</a></li>
+                <li><a href="hardware.html">الهاردوير</a></li>
+                <li><a href="projects.html">المشاريع</a></li>
+                <li><a href="learning-paths.html">المسارات التعليمية</a></li>
+                <li><a href="about.html">من أنا</a></li>
+                <li><a href="questions.html">الأسئلة</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="floating">منصة المدونات</h1>
+            <p>منصة نشر محتوى كاملة تمكن المستخدمين من كتابة ومشاركة المقالات مع نظام تعليقات وتقييمات</p>
+        </section>
+
+        <!-- Project Demo Section -->
+        <section>
+            <h2 class="text-center">تجربة منصة المدونات</h2>
+            <p class="text-center">جرب نسخة تجريبية من منصة المدونات مع مقالات تفاعلية ونظام تعليقات</p>
+            
+            <div class="blog-demo">
+                <div class="demo-container">
+                    <div class="demo-sidebar">
+                        <h3>التصنيفات</h3>
+                        <ul class="categories-list">
+                            <li class="active">جميع المقالات</li>
+                            <li>البرمجة</li>
+                            <li>التصميم</li>
+                            <li>التقنية</li>
+                            <li>التسويق</li>
+                            <li>التطوير الشخصي</li>
+                        </ul>
+                        
+                        <div class="popular-posts">
+                            <h3>المقالات الشائعة</h3>
+                            <div class="popular-post">
+                                <div class="post-thumbnail">📱</div>
+                                <div class="post-content">
+                                    <h4>مستقبل تطوير الويب</h4>
+                                    <p>1.2K مشاهدة</p>
+                                </div>
+                            </div>
+                            <div class="popular-post">
+                                <div class="post-thumbnail">🎨</div>
+                                <div class="post-content">
+                                    <h4>أساسيات تصميم UX/UI</h4>
+                                    <p>980 مشاهدة</p>
+                                </div>
+                            </div>
+                            <div class="popular-post">
+                                <div class="post-thumbnail">🚀</div>
+                                <div class="post-content">
+                                    <h4>أفضل ممارسات React</h4>
+                                    <p>750 مشاهدة</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-main">
+                        <div class="blog-posts">
+                            <div class="blog-post">
+                                <div class="post-header">
+                                    <h3>مقدمة في React Hooks</h3>
+                                    <div class="post-meta">
+                                        <span>بواسطة: أحمد محمد</span>
+                                        <span>2 مايو 2023</span>
+                                        <span>10 دقائق قراءة</span>
+                                    </div>
+                                    <div class="post-tags">
+                                        <span class="post-tag">React</span>
+                                        <span class="post-tag">JavaScript</span>
+                                        <span class="post-tag">Frontend</span>
+                                    </div>
+                                </div>
+                                <div class="post-body">
+                                    <div class="post-excerpt">
+                                        <p>React Hooks هي إضافة جديدة في React 16.8 تتيح لك استخدام الحالة وميزات React الأخرى دون كتابة classes. في هذه المقالة، سنستكشف useState و useEffect و useRef وغيرها من الـ Hooks الأساسية.</p>
+                                    </div>
+                                    <a href="#" class="btn btn-small">قراءة المزيد</a>
+                                </div>
+                                <div class="post-footer">
+                                    <div class="post-actions">
+                                        <button class="action-btn">👍 42</button>
+                                        <button class="action-btn">👎 3</button>
+                                        <button class="action-btn">💬 15</button>
+                                        <button class="action-btn">🔗 مشاركة</button>
+                                    </div>
+                                    <span>1.2K مشاهدة</span>
+                                </div>
+                            </div>
+                            
+                            <div class="blog-post">
+                                <div class="post-header">
+                                    <h3>أفضل أدوات تطوير الويب في 2023</h3>
+                                    <div class="post-meta">
+                                        <span>بواسطة: سارة أحمد</span>
+                                        <span>15 أبريل 2023</span>
+                                        <span>8 دقائق قراءة</span>
+                                    </div>
+                                    <div class="post-tags">
+                                        <span class="post-tag">Web Development</span>
+                                        <span class="post-tag">Tools</span>
+                                        <span class="post-tag">Productivity</span>
+                                    </div>
+                                </div>
+                                <div class="post-body">
+                                    <div class="post-excerpt">
+                                        <p>مع تطور تقنيات الويب، تظهر أدوات جديدة تساعد المطورين على العمل بكفاءة أكبر. في هذه المقالة، سنستعرض أفضل أدوات تطوير الويب التي يجب على كل مطور تجربتها في عام 2023.</p>
+                                    </div>
+                                    <a href="#" class="btn btn-small">قراءة المزيد</a>
+                                </div>
+                                <div class="post-footer">
+                                    <div class="post-actions">
+                                        <button class="action-btn">👍 28</button>
+                                        <button class="action-btn">👎 1</button>
+                                        <button class="action-btn">💬 9</button>
+                                        <button class="action-btn">🔗 مشاركة</button>
+                                    </div>
+                                    <span>980 مشاهدة</span>
+                                </div>
+                            </div>
+                            
+                            <div class="comments-section">
+                                <h3>التعليقات (2)</h3>
+                                <div class="comment">
+                                    <div class="comment-header">
+                                        <span class="comment-author">محمد علي</span>
+                                        <span class="comment-date">منذ 3 أيام</span>
+                                    </div>
+                                    <p>مقال رائع! هل يمكنك إضافة أمثلة عملية أكثر على استخدام useReducer؟</p>
+                                </div>
+                                <div class="comment">
+                                    <div class="comment-header">
+                                        <span class="comment-author">فاطمة أحمد</span>
+                                        <span class="comment-date">منذ يومين</span>
+                                    </div>
+                                    <p>شكراً على الشرح الوافي. كنت أبحث عن شرح مبسط لـ Hooks منذ فترة.</p>
+                                </div>
+                                
+                                <div class="comment-form">
+                                    <h4>أضف تعليقاً</h4>
+                                    <form id="commentForm">
+                                        <div class="form-group">
+                                            <textarea class="form-control" placeholder="اكتب تعليقك هنا..." required></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-small">نشر التعليق</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section>
+            <h2 class="text-center">مميزات منصة المدونات</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>محرر نصوص متقدم</h3>
+                    <p>محرر نصوص غني بالميزات يدعم تنسيق النصوص، إضافة الصور، والروابط</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏷️</div>
+                    <h3>نظام التصنيف والوسوم</h3>
+                    <p>تصنيف المقالات ووضع وسوم لتنظيم المحتوى وتسهيل البحث</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>نظام التعليقات</h3>
+                    <p>نظام تعليقات تفاعلي مع إمكانية الرد على التعليقات والإعجاب بها</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>إحصائيات وتحليلات</h3>
+                    <p>تتبع إحصائيات المشاهدات، التفاعلات، وأداء المقالات</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>بحث متقدم</h3>
+                    <p>نظام بحث ذكي مع خيارات تصفية متعددة للمقالات</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>نظام مستخدمين</h3>
+                    <p>نظام مستخدمين متكامل مع إدارة الصلاحيات والمحافظ الشخصية</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technologies Section -->
+        <section>
+            <h2 class="text-center">التقنيات المستخدمة</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-icon">⚡</div>
+                    <h3>Vue.js</h3>
+                    <p>إطار عمل JavaScript لتطوير واجهات المستخدم التفاعلية</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">🔥</div>
+                    <h3>Firebase</h3>
+                    <p>منصة تطوير التطبيقات مع قاعدة بيانات حقيقية ومصادقة</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">🟢</div>
+                    <h3>Node.js</h3>
+                    <p>بيئة تشغيل JavaScript لبناء نظام الخلفية</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">🗄️</div>
+                    <h3>MySQL</h3>
+                    <p>نظام إدارة قواعد البيانات العلائقية</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">🎨</div>
+                    <h3>Tailwind CSS</h3>
+                    <p>إطار عمل CSS لأسلوب التصميم المرن والسريع</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">🔐</div>
+                    <h3>JWT</h3>
+                    <p>لإدارة المصادقة والجلسات الآمنة</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Explanation -->
+        <section>
+            <h2>كيف تعمل منصة المدونات؟</h2>
+            <div class="code-explanation">
+                <h3>مثال على نموذج المقال في قاعدة البيانات</h3>
+                <p>يستخدم النظام MySQL لتخزين بيانات المقالات. إليك مثال على هيكل جدول المقالات:</p>
+                <div class="code-block">
+                    <span class="code-keyword">CREATE TABLE</span> <span class="code-variable">posts</span> (<br>
+                    &nbsp;&nbsp;<span class="code-variable">id</span> <span class="code-keyword">INT</span> <span class="code-keyword">AUTO_INCREMENT PRIMARY KEY</span>,<br>
+                    &nbsp;&nbsp;<span class="code-variable">title</span> <span class="code-keyword">VARCHAR</span>(255) <span class="code-keyword">NOT NULL</span>,<br>
+                    &nbsp;&nbsp;<span class="code-variable">content</span> <span class="code-keyword">TEXT</span> <span class="code-keyword">NOT NULL</span>,<br>
+                    &nbsp;&nbsp;<span class="code-variable">excerpt</span> <span class="code-keyword">TEXT</span>,<br>
+                    &nbsp;&nbsp;<span class="code-variable">author_id</span> <span class="code-keyword">INT</span> <span class="code-keyword">NOT NULL</span>,<br>
+                    &nbsp;&nbsp;<span class="code-variable">category_id</span> <span class="code-keyword">INT</span>,<br>
+                    &nbsp;&nbsp;<span class="code-variable">slug</span> <span class="code-keyword">VARCHAR</span>(255) <span class="code-keyword">UNIQUE</span>,<br>
+                    &nbsp;&nbsp;<span class="code-variable">views</span> <span class="code-keyword">INT DEFAULT</span> 0,<br>
+                    &nbsp;&nbsp;<span class="code-variable">created_at</span> <span class="code-keyword">TIMESTAMP DEFAULT</span> <span class="code-function">CURRENT_TIMESTAMP</span>,<br>
+                    &nbsp;&nbsp;<span class="code-variable">updated_at</span> <span class="code-keyword">TIMESTAMP DEFAULT</span> <span class="code-function">CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</span>,<br>
+                    &nbsp;&nbsp;<span class="code-keyword">FOREIGN KEY</span> (<span class="code-variable">author_id</span>) <span class="code-keyword">REFERENCES</span> <span class="code-variable">users</span>(<span class="code-variable">id</span>),<br>
+                    &nbsp;&nbsp;<span class="code-keyword">FOREIGN KEY</span> (<span class="code-variable">category_id</span>) <span class="code-keyword">REFERENCES</span> <span class="code-variable">categories</span>(<span class="code-variable">id</span>)<br>
+                    );
+                </div>
+                <p>يتم استخدام Vue.js في الواجهة الأمامية مع إدارة الحالة عبر Vuex، وNode.js مع Express في الخلفية للتعامل مع واجهات برمجة التطبيقات.</p>
+            </div>
+        </section>
+
+        <!-- Learning Section -->
+        <section>
+            <h2 class="text-center">ما ستتعلمه من هذا المشروع</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h4>تطوير تطبيقات Vue.js</h4>
+                    <p>بناء تطبيقات ويب معقدة باستخدام Vue.js ومكتباتها</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔥</div>
+                    <h4>التكامل مع Firebase</h4>
+                    <p>دمج تطبيقات الويب مع خدمات Firebase المختلفة</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🗄️</div>
+                    <h4>قواعد البيانات SQL</h4>
+                    <p>التعامل مع قواعد البيانات العلائقية مثل MySQL</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h4>أنظمة المستخدمين</h4>
+                    <p>بناء أنظمة مصادقة وإدارة صلاحيات المستخدمين</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-2">
+                <a href="projects.html" class="btn">العودة إلى المشاريع</a>
+                <a href="#" class="btn btn-accent">تحميل الكود المصدري</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>© <span id="current-year"></span> محمد صابر. جميع الحقوق محفوظة.</p>
+            <div class="social-links">
+                <a href="about.html">من أنا</a>
+                <a href="https://www.facebook.com/share/1AQAeac5H7/" target="_blank">فيسبوك</a>
+                <a href="https://wa.me/201127503669" target="_blank">واتساب</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Current Year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Mobile Navigation
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Blog Demo Functionality
+        document.querySelectorAll('.categories-list li').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.categories-list li').forEach(li => {
+                    li.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.popular-post').forEach(post => {
+            post.addEventListener('click', function() {
+                const postTitle = this.querySelector('h4').textContent;
+                alert(`سيتم فتح مقال: ${postTitle}`);
+            });
+        });
+
+        document.querySelectorAll('.action-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const action = this.textContent.trim();
+                if (action.includes('💬')) {
+                    document.querySelector('.comments-section').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                } else {
+                    alert(`تم ${action} بنجاح!`);
+                }
+            });
+        });
+
+        document.getElementById('commentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const commentText = this.querySelector('textarea').value;
+            if (commentText.trim() === '') {
+                alert('يرجى كتابة تعليق قبل النشر');
+                return;
+            }
+            
+            alert('شكراً على تعليقك! سيتم نشره بعد المراجعة.');
+            this.reset();
+        });
+
+        // Cyber Canvas Animation
+        const canvas = document.getElementById('cyberCanvas');
+        const ctx = canvas.getContext('2d');
+        let animationId;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.size = Math.random() * 2 + 1;
+                this.color = `hsl(${Math.random() * 60 + 180}, 100%, 70%)`;
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        class CircuitLine {
+            constructor() {
+                this.points = [];
+                this.generatePoints();
+                this.progress = 0;
+                this.speed = Math.random() * 0.02 + 0.005;
+                this.color = `hsl(${Math.random() * 60 + 200}, 100%, 60%)`;
+            }
+
+            generatePoints() {
+                this.points = [];
+                const numPoints = 4 + Math.floor(Math.random() * 3);
+                
+                for (let i = 0; i < numPoints; i++) {
+                    this.points.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height
+                    });
+                }
+            }
+
+            update() {
+                this.progress += this.speed;
+                if (this.progress > 1) {
+                    this.progress = 0;
+                    this.generatePoints();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 1;
+                ctx.globalAlpha = 0.3;
+                
+                // Draw full line
+                ctx.beginPath();
+                ctx.moveTo(this.points[0].x, this.points[0].y);
+                for (let i = 1; i < this.points.length; i++) {
+                    ctx.lineTo(this.points[i].x, this.points[i].y);
+                }
+                ctx.stroke();
+
+                // Draw animated segment
+                const animatedLength = this.progress * (this.points.length - 1);
+                const segmentIndex = Math.floor(animatedLength);
+                const segmentProgress = animatedLength - segmentIndex;
+
+                if (segmentIndex < this.points.length - 1) {
+                    const start = this.points[segmentIndex];
+                    const end = this.points[segmentIndex + 1];
+                    
+                    const x = start.x + (end.x - start.x) * segmentProgress;
+                    const y = start.y + (end.y - start.y) * segmentProgress;
+                    
+                    ctx.strokeStyle = this.color;
+                    ctx.lineWidth = 2;
+                    ctx.globalAlpha = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(start.x, start.y);
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                    
+                    // Glow effect
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = this.color;
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                }
+                
+                ctx.restore();
+            }
+        }
+
+        class RobotArm {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.segments = [];
+                this.angle = Math.random() * Math.PI * 2;
+                this.segmentCount = 3 + Math.floor(Math.random() * 3);
+                this.segmentLength = 30 + Math.random() * 40;
+                this.color = `hsl(${Math.random() * 60 + 300}, 100%, 70%)`;
+                this.speed = (Math.random() - 0.5) * 0.02;
+                
+                // Generate segments
+                for (let i = 0; i < this.segmentCount; i++) {
+                    this.segments.push({
+                        angle: Math.random() * Math.PI * 2,
+                        length: this.segmentLength * (0.8 + Math.random() * 0.4)
+                    });
+                }
+            }
+
+            update() {
+                this.angle += this.speed;
+                
+                // Reset if off screen
+                let endX = this.x;
+                let endY = this.y;
+                
+                for (const segment of this.segments) {
+                    endX += Math.cos(segment.angle + this.angle) * segment.length;
+                    endY += Math.sin(segment.angle + this.angle) * segment.length;
+                }
+                
+                if (endX < -100 || endX > canvas.width + 100 || 
+                    endY < -100 || endY > canvas.height + 100) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 3;
+                ctx.globalAlpha = 0.7;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = this.color;
+                
+                let currentX = this.x;
+                let currentY = this.y;
+                
+                ctx.beginPath();
+                ctx.moveTo(currentX, currentY);
+                
+                // Draw arm segments
+                for (let i = 0; i < this.segments.length; i++) {
+                    const segment = this.segments[i];
+                    currentX += Math.cos(segment.angle + this.angle) * segment.length;
+                    currentY += Math.sin(segment.angle + this.angle) * segment.length;
+                    ctx.lineTo(currentX, currentY);
+                }
+                
+                ctx.stroke();
+                
+                // Draw joints
+                ctx.fillStyle = this.color;
+                currentX = this.x;
+                currentY = this.y;
+                
+                for (let i = 0; i < this.segments.length; i++) {
+                    const segment = this.segments[i];
+                    currentX += Math.cos(segment.angle + this.angle) * segment.length;
+                    currentY += Math.sin(segment.angle + this.angle) * segment.length;
+                    
+                    ctx.beginPath();
+                    ctx.arc(currentX, currentY, 4, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                
+                ctx.restore();
+            }
+        }
+
+        const particles = Array.from({ length: 100 }, () => new Particle());
+        const circuits = Array.from({ length: 8 }, () => new CircuitLine());
+        const robotArms = Array.from({ length: 3 }, () => new RobotArm());
+
+        function animate() {
+            ctx.fillStyle = 'rgba(5, 5, 16, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw grid
+            ctx.strokeStyle = 'rgba(0, 243, 255, 0.1)';
+            ctx.lineWidth = 1;
+            const gridSize = 50;
+            
+            for (let x = 0; x < canvas.width; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            
+            for (let y = 0; y < canvas.height; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            circuits.forEach(circuit => {
+                circuit.update();
+                circuit.draw();
+            });
+
+            robotArms.forEach(arm => {
+                arm.update();
+                arm.draw();
+            });
+
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // Start animation
+        animate();
+    </script>
+</body>
+</html>

@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الهاردوير - أكاديمية البرمجة</title>
+    <meta name="description" content="تعرف على مكونات الكمبيوتر وطريقة عملها">
+    <style>
+        /* أنماط الصفحة الرئيسية */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00f3ff;
+            --secondary: #ff00ff;
+            --accent: #00ff88;
+            --dark: #0a0a1a;
+            --darker: #050510;
+            --text: #e0e0ff;
+            --text-secondary: #a0a0c0;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        #cyberCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        nav {
+            background: rgba(10, 10, 26, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            margin: 3px 0;
+            transition: var(--transition);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        section:hover {
+            border-color: var(--primary);
+            box-shadow: var(--neon-glow);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-right: 3px solid var(--primary);
+            padding-right: 1rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: var(--neon-glow);
+        }
+
+        footer {
+            background: rgba(10, 10, 26, 0.9);
+            border-top: 1px solid var(--glass-border);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+        .social-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* زر العودة للرئيسية في نهاية الصفحة */
+        .back-home-section {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+        }
+
+        .back-home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            border: 2px solid var(--primary);
+            box-shadow: var(--neon-glow);
+        }
+
+        .back-home-btn:hover {
+            background: transparent;
+            color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary);
+        }
+
+        .back-home-btn span {
+            font-size: 1.5rem;
+        }
+
+        /* زر العودة العائم */
+        .home-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: var(--neon-glow);
+            transition: var(--transition);
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        .home-btn:hover {
+            background: transparent;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary);
+        }
+
+        .home-btn span {
+            font-size: 1.2rem;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* أنماط خاصة بصفحة الهاردوير */
+        .hardware-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .hardware-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        .hardware-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .component-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .specs-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .specs-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .specs-list li:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(10, 10, 26, 0.95);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            main {
+                padding: 1rem;
+                margin-top: 70px;
+            }
+
+            section {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .back-home-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .home-btn {
+                bottom: 20px;
+                left: 20px;
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الخلفية المتحركة -->
+    <canvas id="cyberCanvas"></canvas>
+
+    <!-- شريط التنقل -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">أكاديمية البرمجة</a>
+            <ul class="nav-links">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="programming.html">لغات البرمجة</a></li>
+                <li><a href="hardware.html" class="active">الهاردوير</a></li>
+                <li><a href="about.html">من أنا</a></li>
+                <li><a href="questions.html">الأسئلة</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <main>
+        <section class="hero">
+            <h1>الهاردوير</h1>
+            <p>اكتشف عالم مكونات الكمبيوتر المادية. فهم الهاردوير يساعدك في صيانة أجهزتك، اختيار المكونات المناسبة، وفهم كيفية عمل التكنولوجيا من حولنا.</p>
+        </section>
+
+        <section>
+            <h2>ما هو الهاردوير؟</h2>
+            <p>الهاردوير (Hardware) يشير إلى جميع المكونات المادية للكمبيوتر التي يمكن لمسها فعلياً. هذه المكونات تعمل معاً لتنفيذ التعليمات وتشغيل البرامج.</p>
+            
+            <div class="hardware-grid">
+                <div class="hardware-item">
+                    <div class="component-icon">🧠</div>
+                    <h3>المعالج (CPU)</h3>
+                    <p><strong>الوظيفة:</strong> عقل الكمبيوتر - ينفذ التعليمات والحسابات.</p>
+                    <p><strong>التشبيه:</strong> مثل الدماغ البشري الذي يفكر ويتخذ القرارات.</p>
+                    <ul class="specs-list">
+                        <li><strong>السرعة:</strong> تقاس بالجيجاهيرتز (GHz)</li>
+                        <li><strong>النوى:</strong> عدد الأنوية (Cores)</li>
+                        <li><strong>الذاكرة المؤقتة:</strong> الكاش (Cache)</li>
+                    </ul>
+                    <p><strong>مشاكل شائعة:</strong> ارتفاع الحرارة، تلف الدبابيس، عدم التوافق.</p>
+                </div>
+
+                <div class="hardware-item">
+                    <div class="component-icon">💾</div>
+                    <h3>الذاكرة العشوائية (RAM)</h3>
+                    <p><strong>الوظيفة:</strong> تخزين مؤقت للبيانات قيد المعالجة.</p>
+                    <p><strong>التشبيه:</strong> مثل مكتب العمل - كلما كان أكبر، زادت المهام التي يمكن التعامل معها.</p>
+                    <ul class="specs-list">
+                        <li><strong>السعة:</strong> تقاس بالجيجابايت (GB)</li>
+                        <li><strong>السرعة:</strong> تقاس بالميجاهيرتز (MHz)</li>
+                        <li><strong>النوع:</strong> DDR4, DDR5</li>
+                    </ul>
+                    <p><strong>مشاكل شائعة:</strong> تلف الشرائح، عدم التوافق، إعدادات خاطئة في BIOS.</p>
+                </div>
+
+                <div class="hardware-item">
+                    <div class="component-icon">🔌</div>
+                    <h3>اللوحة الأم (Motherboard)</h3>
+                    <p><strong>الوظيفة:</strong> تربط جميع مكونات الكمبيوتر معاً.</p>
+                    <p><strong>التشبيه:</strong> مثل نظام الطرق في المدينة - يربط جميع الأماكن ببعضها.</p>
+                    <ul class="specs-list">
+                        <li><strong>المقبس:</strong> نوع مقبس المعالج</li>
+                        <li><strong>المنافذ:</strong> USB, HDMI, Ethernet</li>
+                        <li><strong>التوسعات:</strong> PCIe slots</li>
+                    </ul>
+                    <p><strong>مشاكل شائعة:</strong> تلف المكثفات، منافذ معطلة، تحديث BIOS فاشل.</p>
+                </div>
+
+                <div class="hardware-item">
+                    <div class="component-icon">💿</div>
+                    <h3>التخزين (HDD/SSD)</h3>
+                    <p><strong>الوظيفة:</strong> تخزين البيانات بشكل دائم.</p>
+                    <p><strong>التشبيه:</strong> مثل المكتبة - تحفظ جميع الكتب (الملفات) للرجوع إليها لاحقاً.</p>
+                    <ul class="specs-list">
+                        <li><strong>السعة:</strong> تيرابايت (TB) أو جيجابايت (GB)</li>
+                        <li><strong>السرعة:</strong> سرعة القراءة/الكتابة</li>
+                        <li><strong>النوع:</strong> HDD, SSD, NVMe</li>
+                    </ul>
+                    <p><strong>مشاكل شائعة:</strong> تلف القطاعات، فقدان البيانات، بطء الأداء.</p>
+                </div>
+
+                <div class="hardware-item">
+                    <div class="component-icon">🎮</div>
+                    <h3>كارت الشاشة (GPU)</h3>
+                    <p><strong>الوظيفة:</strong> معالجة الرسومات وعرضها على الشاشة.</p>
+                    <p><strong>التشبيه:</strong> مثل الفنان الذي يرسم الصور بسرعة وجودة عالية.</p>
+                    <ul class="specs-list">
+                        <li><strong>الذاكرة:</strong> VRAM</li>
+                        <li><strong>سرعة النواة:</strong> Core Clock</li>
+                        <li><strong>عدد الأنوية:</strong> CUDA Cores</li>
+                    </ul>
+                    <p><strong>مشاكل شائعة:</strong> ارتفاع الحرارة، مشاكل التعريفات، عدم كفاية الطاقة.</p>
+                </div>
+
+                <div class="hardware-item">
+                    <div class="component-icon">⚡</div>
+                    <h3>مزود الطاقة (PSU)</h3>
+                    <p><strong>الوظيفة:</strong> تزويد جميع المكونات بالطاقة الكهربائية.</p>
+                    <p><strong>التشبيه:</strong> مثل القلب الذي يضخ الدم لجميع أعضاء الجسم.</p>
+                    <ul class="specs-list">
+                        <li><strong>القدرة:</strong> واط (Watt)</li>
+                        <li><strong>الكفاءة:</strong> 80 Plus Rating</li>
+                        <li><strong>المنافذ:</strong> PCIe, SATA, CPU</li>
+                    </ul>
+                    <p><strong>مشاكل شائعة:</strong> ضعف الطاقة، تذبذب التيار، تلف المكثفات.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>كيف تتفاعل المكونات معاً</h2>
+            <p>تعمل مكونات الكمبيوتر معاً في تناغم لتنفيذ المهام. إليك دورة العمل النموذجية:</p>
+            <ol>
+                <li>يقوم المستخدم بإدخال أمر عبر لوحة المفاتيح أو الفأرة</li>
+                <li>يرسل المعالج (CPU) طلباً للبيانات من الذاكرة العشوائية (RAM)</li>
+                <li>إذا لم تكن البيانات في RAM، يتم جلبها من وحدة التخزين (HDD/SSD)</li>
+                <li>يقوم CPU بمعالجة البيانات وإرسال النتائج إلى GPU للعرض</li>
+                <li>يعرض GPU النتيجة على الشاشة</li>
+                <li>يتم تخزين النتائج النهائية في وحدة التخزين إذا لزم الأمر</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>نصائح للصيانة والترقية</h2>
+            <div class="hardware-grid">
+                <div class="hardware-item">
+                    <h3>🔧 الصيانة الدورية</h3>
+                    <ul>
+                        <li>تنظيف الغبار من المكونات كل 6 أشهر</li>
+                        <li>مراقبة درجات الحرارة</li>
+                        <li>تحديث التعريفات بانتظام</li>
+                        <li>فحص القرص الصلب للأخطاء</li>
+                    </ul>
+                </div>
+                <div class="hardware-item">
+                    <h3>🚀 ترقية المكونات</h3>
+                    <ul>
+                        <li>ابدأ بترقية RAM لأكبر تأثير</li>
+                        <li>استبدل HDD بـ SSD لتحسين الأداء</li>
+                        <li>تحقق من توافق المكونات الجديدة</li>
+                        <li>احرص على كفاية مصدر الطاقة</li>
+                    </ul>
+                </div>
+                <div class="hardware-item">
+                    <h3>⚠️ استكشاف الأخطاء</h3>
+                    <ul>
+                        <li>تحقق من التوصيلات أولاً</li>
+                        <li>اختبر المكونات بشكل منفصل</li>
+                        <li>استخدم برامج التشخيص</li>
+                        <li>تحقق من سجلات النظام</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- زر العودة للرئيسية في نهاية الصفحة -->
+        <section class="back-home-section">
+            <a href="index.html" class="back-home-btn">
+                <span>🏠</span>
+                العودة إلى الصفحة الرئيسية
+            </a>
+        </section>
+    </main>
+
+    <!-- التذييل -->
+    <footer>
+        <div class="footer-content">
+            <p>© <span id="current-year"></span> أكاديمية البرمجة. جميع الحقوق محفوظة.</p>
+            <div class="social-links">
+                <a href="about.html">من أنا</a>
+                <a href="https://www.facebook.com/share/1BffUMRMoa/" target="_blank">فيسبوك</a>
+                <a href="https://wa.me/201127503669" target="_blank">واتساب</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- زر العودة العائم -->
+    <a href="index.html" class="home-btn">
+        <span>🏠</span>
+        الرئيسية
+    </a>
+
+    <script>
+        // السنة الحالية
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // القائمة المتحركة للجوال
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // خلفية Canvas متطورة
+        const canvas = document.getElementById('cyberCanvas');
+        const ctx = canvas.getContext('2d');
+        let animationId;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.size = Math.random() * 2 + 1;
+                this.color = `hsl(${Math.random() * 60 + 180}, 100%, 70%)`;
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        class CircuitLine {
+            constructor() {
+                this.points = [];
+                this.generatePoints();
+                this.progress = 0;
+                this.speed = Math.random() * 0.02 + 0.005;
+                this.color = `hsl(${Math.random() * 60 + 200}, 100%, 60%)`;
+            }
+
+            generatePoints() {
+                this.points = [];
+                const numPoints = 4 + Math.floor(Math.random() * 3);
+                
+                for (let i = 0; i < numPoints; i++) {
+                    this.points.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height
+                    });
+                }
+            }
+
+            update() {
+                this.progress += this.speed;
+                if (this.progress > 1) {
+                    this.progress = 0;
+                    this.generatePoints();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 1;
+                ctx.globalAlpha = 0.3;
+                
+                ctx.beginPath();
+                ctx.moveTo(this.points[0].x, this.points[0].y);
+                for (let i = 1; i < this.points.length; i++) {
+                    ctx.lineTo(this.points[i].x, this.points[i].y);
+                }
+                ctx.stroke();
+
+                const animatedLength = this.progress * (this.points.length - 1);
+                const segmentIndex = Math.floor(animatedLength);
+                const segmentProgress = animatedLength - segmentIndex;
+
+                if (segmentIndex < this.points.length - 1) {
+                    const start = this.points[segmentIndex];
+                    const end = this.points[segmentIndex + 1];
+                    
+                    const x = start.x + (end.x - start.x) * segmentProgress;
+                    const y = start.y + (end.y - start.y) * segmentProgress;
+                    
+                    ctx.strokeStyle = this.color;
+                    ctx.lineWidth = 2;
+                    ctx.globalAlpha = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(start.x, start.y);
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                    
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = this.color;
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                }
+                
+                ctx.restore();
+            }
+        }
+
+        const particles = Array.from({ length: 100 }, () => new Particle());
+        const circuits = Array.from({ length: 8 }, () => new CircuitLine());
+
+        function animate() {
+            ctx.fillStyle = 'rgba(5, 5, 16, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            circuits.forEach(circuit => {
+                circuit.update();
+                circuit.draw();
+            });
+
+            animationId = requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية البرمجة - تعلم البرمجة والهاردوير</title>
-    <meta name="description" content="موقع تعليمي شامل للبرمجة والهاردوير باللغة العربية، مع دروس تفاعلية وأسئلة تقييم">
+    <title>المشاريع - أكاديمية البرمجة</title>
+    <meta name="description" content="استكشف مشاريع برمجية عملية وتعلم من خلال التطبيق في أكاديمية البرمجة">
     <style>
         /* Reset and Base Styles */
         * {
@@ -302,55 +302,109 @@
             font-size: 0.9rem;
         }
 
-        /* Roadmap */
-        .roadmap {
-            position: relative;
-            padding: 2rem 0;
+        /* Project Details */
+        .project-details {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
         }
 
-        .roadmap::before {
-            content: '';
+        .project-details h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 0.5rem;
+        }
+
+        .project-details ul {
+            margin-right: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-details li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .project-details li::before {
+            content: "▸";
+            color: var(--primary);
+            position: absolute;
+            right: -1.5rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tech-tag {
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .project-preview {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            border-radius: 10px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-preview::before {
+            content: "";
             position: absolute;
             top: 0;
-            right: 50%;
-            transform: translateX(50%);
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, var(--primary), transparent);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 40%, rgba(0, 243, 255, 0.1) 50%, transparent 60%);
+            animation: shine 3s infinite linear;
         }
 
-        .roadmap-item {
-            position: relative;
-            margin-bottom: 3rem;
-            width: 50%;
-            padding: 1.5rem;
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
-        .roadmap-item:nth-child(odd) {
-            margin-right: auto;
+        .project-level {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
         }
 
-        .roadmap-item:nth-child(even) {
-            margin-left: auto;
+        .level-beginner {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
         }
 
-        .roadmap-item::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 15px;
-            height: 15px;
-            background: var(--accent);
-            border-radius: 50%;
-            transform: translateY(-50%);
+        .level-intermediate {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid gold;
+            color: gold;
         }
 
-        .roadmap-item:nth-child(odd)::before {
-            left: -7.5px;
-        }
-
-        .roadmap-item:nth-child(even)::before {
-            right: -7.5px;
+        .level-advanced {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff4444;
+            color: #ff4444;
         }
 
         /* Footer */
@@ -482,25 +536,6 @@
             .nav-cards {
                 grid-template-columns: 1fr;
             }
-
-            .roadmap::before {
-                right: 20px;
-            }
-
-            .roadmap-item {
-                width: calc(100% - 40px);
-            }
-
-            .roadmap-item:nth-child(odd),
-            .roadmap-item:nth-child(even) {
-                margin-right: 0;
-                margin-left: auto;
-            }
-
-            .roadmap-item::before {
-                right: -7.5px;
-                left: auto;
-            }
         }
 
         /* Accessibility */
@@ -554,162 +589,296 @@
     <main>
         <!-- Hero Section -->
         <section class="hero">
-            <h1 class="floating">أكاديمية البرمجة</h1>
-            <p>مرحباً بك في مستقبل التعليم التقني! موقع شامل لتعلم البرمجة والهاردوير باللغة العربية، مع دروس تفاعلية وأسئلة تقييم ومسارات تعليمية مخصصة.</p>
-            <a href="programming.html" class="btn btn-accent">ابدأ التعلم الآن</a>
+            <h1 class="floating">المشاريع البرمجية</h1>
+            <p>استكشف مجموعة من المشاريع البرمجية العملية التي تساعدك على تطبيق ما تعلمته وتطوير مهاراتك البرمجية</p>
         </section>
 
-        <!-- Navigation Cards Section -->
+        <!-- Calculator Project -->
         <section>
-            <h2 class="text-center">استكشف الأكاديمية</h2>
-            <p class="text-center">انتقل بسهولة بين أقسام الموقع المختلفة لتبدأ رحلتك التعليمية</p>
-            
-            <div class="nav-cards">
-                <a href="programming.html" class="nav-card">
-                    <div class="feature-icon">💻</div>
-                    <h3>لغات البرمجة</h3>
-                    <p>تعلم أهم لغات البرمجة مع شروح مفصلة وأمثلة عملية</p>
-                    <div class="btn" style="margin-top: 1rem;">استكشف الآن</div>
-                </a>
+            <div class="card">
+                <div class="feature-icon">🧮</div>
+                <h2>حاسبة متقدمة</h2>
+                <span class="project-level level-beginner">مبتدئ</span>
+                <p>حاسبة ويب متكاملة تدعم العمليات الحسابية الأساسية والمتقدمة مع واجهة مستخدم تفاعلية.</p>
                 
-                <a href="hardware.html" class="nav-card">
-                    <div class="feature-icon">🔧</div>
-                    <h3>الهاردوير</h3>
-                    <p>افهم مكونات الكمبيوتر وطريقة عملها وصيانتها</p>
-                    <div class="btn" style="margin-top: 1rem;">استكشف الآن</div>
-                </a>
+                <div class="project-preview">
+                    <h3>معاينة المشروع</h3>
+                </div>
                 
-                <a href="projects.html" class="nav-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>المشاريع</h3>
-                    <p>استكشف مشاريع برمجية عملية وتعلم من خلال التطبيق</p>
-                    <div class="btn" style="margin-top: 1rem;">استكشف الآن</div>
-                </a>
+                <div class="project-details">
+                    <h4>مميزات المشروع:</h4>
+                    <ul>
+                        <li>عمليات حسابية أساسية (جمع، طرح، ضرب، قسمة)</li>
+                        <li>عمليات متقدمة (نسب مئوية، أس، جذر تربيعي)</li>
+                        <li>ذاكرة للحسابات (M+, M-, MR, MC)</li>
+                        <li>واجهة مستخدم تفاعلية مع تأثيرات بصرية</li>
+                        <li>دعم الإدخال من لوحة المفاتيح</li>
+                        <li>تصميم متجاوب مع جميع الشاشات</li>
+                    </ul>
+                    
+                    <h4>التقنيات المستخدمة:</h4>
+                    <div class="tech-stack">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Flexbox</span>
+                        <span class="tech-tag">Local Storage</span>
+                    </div>
+                    
+                    <h4>ما ستتعلمه:</h4>
+                    <ul>
+                        <li>معالجة الأحداث في JavaScript</li>
+                        <li>التعامل مع DOM</li>
+                        <li>تصميم واجهات مستخدم تفاعلية</li>
+                        <li>التخزين المحلي في المتصفح</li>
+                        <li>مبادئ التصميم المتجاوب</li>
+                    </ul>
+                </div>
                 
-                <a href="learning-paths.html" class="nav-card">
-                    <div class="feature-icon">🗺️</div>
-                    <h3>المسارات التعليمية</h3>
-                    <p>اختر مسارك التعليمي المناسب لمستواك وأهدافك</p>
-                    <div class="btn" style="margin-top: 1rem;">استكشف الآن</div>
-                </a>
-                
-                <a href="questions.html" class="nav-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>الأسئلة التفاعلية</h3>
-                    <p>اختبر معرفتك من خلال أسئلة تفاعلية متنوعة</p>
-                    <div class="btn" style="margin-top: 1rem;">ابدأ الاختبار</div>
-                </a>
-                
-                <a href="about.html" class="nav-card">
-                    <div class="feature-icon">👤</div>
-                    <h3>من أنا</h3>
-                    <p>تعرف على مؤسس الأكاديمية وخبراته وطرق التواصل</p>
-                    <div class="btn" style="margin-top: 1rem;">تعرف أكثر</div>
-                </a>
+                <div class="text-center mt-2">
+                    <a href="calculator-project.html" class="btn">استكشاف المشروع</a>
+                    <a href="#" class="btn btn-accent">تحميل الكود المصدري</a>
+                </div>
             </div>
         </section>
 
-        <!-- Features Section -->
+        <!-- Personal Profile Project -->
         <section>
-            <h2 class="text-center">مميزات الأكاديمية</h2>
+            <div class="card">
+                <div class="feature-icon">👤</div>
+                <h2>صفحة تعريف شخصي</h2>
+                <span class="project-level level-beginner">مبتدئ</span>
+                <p>صفحة ويب شخصية متكاملة لعرض سيرتك الذاتية ومهاراتك ومشاريعك.</p>
+                
+                <div class="project-preview">
+                    <h3>معاينة المشروع</h3>
+                </div>
+                
+                <div class="project-details">
+                    <h4>مميزات المشروع:</h4>
+                    <ul>
+                        <li>قسم عن الشخصية وخلفية المهنية</li>
+                        <li>معرض للمشاريع السابقة</li>
+                        <li>قائمة بالمهارات التقنية</li>
+                        <li>نماذج للتواصل</li>
+                        <li>روابط وسائل التواصل الاجتماعي</li>
+                        <li>تصميم احترافي وجذاب</li>
+                    </ul>
+                    
+                    <h4>التقنيات المستخدمة:</h4>
+                    <div class="tech-stack">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">CSS Grid</span>
+                        <span class="tech-tag">Flexbox</span>
+                        <span class="tech-tag">Font Awesome</span>
+                    </div>
+                    
+                    <h4>ما ستتعلمه:</h4>
+                    <ul>
+                        <li>إنشاء هيكل صفحة ويب متكاملة</li>
+                        <li>تصميم وتخطيط الصفحات باستخدام CSS Grid و Flexbox</li>
+                        <li>إضافة تأثيرات تفاعلية باستخدام JavaScript</li>
+                        <li>تحسين SEO للصفحات الشخصية</li>
+                        <li>مبادئ تصميم واجهات المستخدم UX/UI</li>
+                    </ul>
+                </div>
+                
+                <div class="text-center mt-2">
+                    <a href="profile-project.html" class="btn">استكشاف المشروع</a>
+                    <a href="#" class="btn btn-accent">تحميل الكود المصدري</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- E-commerce Store Project -->
+        <section>
+            <div class="card">
+                <div class="feature-icon">🛒</div>
+                <h2>متجر إلكتروني</h2>
+                <span class="project-level level-intermediate">متوسط</span>
+                <p>منصة تسوق إلكتروني كاملة مع نظام عربة تسوق ودفع إلكتروني.</p>
+                
+                <div class="project-preview">
+                    <h3>معاينة المشروع</h3>
+                </div>
+                
+                <div class="project-details">
+                    <h4>مميزات المشروع:</h4>
+                    <ul>
+                        <li>صفحة رئيسية مع عرض المنتجات</li>
+                        <li>صفحات تفاصيل المنتج</li>
+                        <li>نظام عربة تسوق متكامل</li>
+                        <li>نظام تصنيف المنتجات والبحث</li>
+                        <li>نموذج دفع تجريبي</li>
+                        <li>لوحة تحكم للمسؤول</li>
+                    </ul>
+                    
+                    <h4>التقنيات المستخدمة:</h4>
+                    <div class="tech-stack">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">React.js</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Express.js</span>
+                    </div>
+                    
+                    <h4>ما ستتعلمه:</h4>
+                    <ul>
+                        <li>تطوير تطبيقات ويب باستخدام React</li>
+                        <li>بناء واجهات برمجة تطبيقات (API) باستخدام Node.js</li>
+                        <li>التعامل مع قواعد البيانات NoSQL مثل MongoDB</li>
+                        <li>إدارة حالة التطبيق باستخدام State Management</li>
+                        <li>مبادئ أمن تطبيقات الويب</li>
+                    </ul>
+                </div>
+                
+                <div class="text-center mt-2">
+                    <a href="ecommerce-project.html" class="btn">استكشاف المشروع</a>
+                    <a href="#" class="btn btn-accent">تحميل الكود المصدري</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Platform Project -->
+        <section>
+            <div class="card">
+                <div class="feature-icon">📝</div>
+                <h2>منصة مدونات</h2>
+                <span class="project-level level-intermediate">متوسط</span>
+                <p>منصة نشر محتوى كاملة تمكن المستخدمين من كتابة ومشاركة المقالات.</p>
+                
+                <div class="project-preview">
+                    <h3>معاينة المشروع</h3>
+                </div>
+                
+                <div class="project-details">
+                    <h4>مميزات المشروع:</h4>
+                    <ul>
+                        <li>نظام مستخدمين وتسجيل دخول</li>
+                        <li>منشئ مقالات مع محرر نصوص متقدم</li>
+                        <li>نظام تصنيف ووسوم للمقالات</li>
+                        <li>نظام تعليقات وتقييمات</li>
+                        <li>لوحة تحكم للمستخدمين والمسؤولين</li>
+                        <li>إمكانية البحث والتصفية</li>
+                    </ul>
+                    
+                    <h4>التقنيات المستخدمة:</h4>
+                    <div class="tech-stack">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Vue.js</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">MySQL</span>
+                    </div>
+                    
+                    <h4>ما ستتعلمه:</h4>
+                    <ul>
+                        <li>تطوير تطبيقات الويب باستخدام Vue.js</li>
+                        <li>التعامل مع قواعد البيانات SQL مثل MySQL</li>
+                        <li>دمج تطبيقات الويب مع خدمات Firebase</li>
+                        <li>بناء أنظمة مصادقة المستخدمين</li>
+                        <li>مبادئ إدارة المحتوى والصلاحيات</li>
+                    </ul>
+                </div>
+                
+                <div class="text-center mt-2">
+                    <a href="blog-project.html" class="btn">استكشاف المشروع</a>
+                    <a href="#" class="btn btn-accent">تحميل الكود المصدري</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mobile App Project -->
+        <section>
+            <div class="card">
+                <div class="feature-icon">📱</div>
+                <h2>تطبيق موبايل متقدم</h2>
+                <span class="project-level level-advanced">متقدم</span>
+                <p>تطبيق جوال متكامل لإدارة المهام مع ميزات متقدمة ومزامنة سحابية.</p>
+                
+                <div class="project-preview">
+                    <h3>معاينة المشروع</h3>
+                </div>
+                
+                <div class="project-details">
+                    <h4>مميزات المشروع:</h4>
+                    <ul>
+                        <li>إنشاء وتنظيم المهام والمشاريع</li>
+                        <li>إشعارات محلية وفورية</li>
+                        <li>مزامنة بيانات بين الأجهزة</li>
+                        <li>وضع العمل دون اتصال بالإنترنت</li>
+                        <li>إحصائيات وتقارير عن الإنتاجية</li>
+                        <li>ميزات التعاون والمشاركة</li>
+                    </ul>
+                    
+                    <h4>التقنيات المستخدمة:</h4>
+                    <div class="tech-stack">
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Redux</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">AWS</span>
+                    </div>
+                    
+                    <h4>ما ستتعلمه:</h4>
+                    <ul>
+                        <li>تطوير تطبيقات الجوال باستخدام React Native</li>
+                        <li>إدارة حالة التطبيقات المعقدة باستخدام Redux</li>
+                        <li>التكامل مع خدمات السحابة مثل Firebase و AWS</li>
+                        <li>بناء واجهات برمجة تطبيقات RESTful</li>
+                        <li>مبادئ تصميم تجربة المستخدم للجوال</li>
+                        <li>نشر التطبيقات على متاجر التطبيقات</li>
+                    </ul>
+                </div>
+                
+                <div class="text-center mt-2">
+                    <a href="mobile-app-project.html" class="btn">استكشاف المشروع</a>
+                    <a href="#" class="btn btn-accent">تحميل الكود المصدري</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Selection Guide -->
+        <section>
+            <h2 class="text-center">كيف تختار المشروع المناسب؟</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">💻</div>
-                    <h3>تعلم البرمجة</h3>
-                    <p>دروس شاملة للغات البرمجة الرئيسية مع أمثلة عملية وتطبيقات حقيقية</p>
+                    <div class="feature-icon">🔰</div>
+                    <h3>مشاريع المبتدئين</h3>
+                    <p>مناسبة للمبرمجين الجدد الذين يتعلمون أساسيات البرمجة وتطوير الويب</p>
+                    <ul style="text-align: right; margin-top: 1rem;">
+                        <li>الحاسبة</li>
+                        <li>صفحة التعريف الشخصي</li>
+                        <li>موقع شخصي بسيط</li>
+                    </ul>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔧</div>
-                    <h3>فهم الهاردوير</h3>
-                    <p>شرح مفصل لمكونات الكمبيوتر وصيانتها وطريقة عملها</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>اختبار المعرفة</h3>
-                    <p>أسئلة تفاعلية وتقييمات لقياس تقدمك في رحلة التعلم</p>
+                    <div class="feature-icon">⚡</div>
+                    <h3>مشاريع المستوى المتوسط</h3>
+                    <p>مناسبة للمبرمجين الذين لديهم فهم جيد للأساسيات ويريدون التوسع</p>
+                    <ul style="text-align: right; margin-top: 1rem;">
+                        <li>المتجر الإلكتروني</li>
+                        <li>منصة المدونات</li>
+                        <li>تطبيقات ويب تفاعلية</li>
+                    </ul>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🚀</div>
-                    <h3>مسارات تعليمية</h3>
-                    <p>خطط دراسية منظمة تناسب جميع المستويات والأهداف</p>
+                    <h3>مشاريع المستوى المتقدم</h3>
+                    <p>مناسبة للمبرمجين ذوي الخبرة الذين يريدون بناء تطبيقات معقدة</p>
+                    <ul style="text-align: right; margin-top: 1rem;">
+                        <li>تطبيقات الجوال</li>
+                        <li>أنظمة إدارة متكاملة</li>
+                        <li>تطبيقات الوقت الفعلي</li>
+                    </ul>
                 </div>
-            </div>
-        </section>
-
-        <!-- Roadmap Section -->
-        <section>
-            <h2 class="text-center">خارطة التعلم</h2>
-            <div class="roadmap">
-                <div class="roadmap-item">
-                    <h3>المرحلة الأولى: الأساسيات</h3>
-                    <p>تعلم أساسيات البرمجة، HTML، CSS، والمنطق البرمجي</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>المرحلة الثانية: البرمجة المتقدمة</h3>
-                    <p>تعمق في JavaScript، Python، وقواعد البيانات</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>المرحلة الثالثة: التخصص</h3>
-                    <p>اختر تخصصك: تطوير الويب، تطبيقات الموبايل، أو علم البيانات</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>المرحلة الرابعة: المشاريع</h3>
-                    <p>بناء مشاريع حقيقية وتطوير محفظة أعمالك</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- AI Assistant Section -->
-        <section>
-            <h2 class="text-center">مساعد الذكاء الاصطناعي</h2>
-            <div class="card glass text-center">
-                <h3>🤖 مساعد التعلم الذكي</h3>
-                <p>استفد من مساعد الذكاء الاصطناعي المدمج في الأكاديمية للحصول على:</p>
-                <ul style="text-align: right; margin: 1rem 0;">
-                    <li>إجابات فورية على استفساراتك البرمجية</li>
-                    <li>تصحيح الأخطاء في الكود وشرحها</li>
-                    <li>مقترحات لتحسين أداء التطبيقات</li>
-                    <li>توصيات شخصية لمحتوى تعليمي</li>
-                </ul>
-                <button class="btn mt-2">تفعيل المساعد الذكي</button>
-            </div>
-        </section>
-        
-        <!-- Quick Navigation Section -->
-        <section>
-            <h2 class="text-center">روابط سريعة</h2>
-            <p class="text-center">انتقل بسرعة إلى الأقسام الرئيسية في الموقع</p>
-            
-            <div class="nav-cards">
-                <a href="programming.html#javascript" class="nav-card">
-                    <h3>JavaScript</h3>
-                    <p>ابدأ بتعلم لغة البرمجة الأشهر لتطوير الويب</p>
-                </a>
-                
-                <a href="programming.html#python" class="nav-card">
-                    <h3>Python</h3>
-                    <p>تعلم لغة البرمجة متعددة الاستخدامات</p>
-                </a>
-                
-                <a href="hardware.html#cpu" class="nav-card">
-                    <h3>المعالج (CPU)</h3>
-                    <p>افهم عقل الكمبيوتر وكيف يعمل</p>
-                </a>
-                
-                <a href="projects.html" class="nav-card">
-                    <h3>المشاريع</h3>
-                    <p>استكشف مشاريع عملية لتطبيق ما تعلمته</p>
-                </a>
-                
-                <a href="learning-paths.html" class="nav-card">
-                    <h3>المسارات التعليمية</h3>
-                    <p>اختر المسار التعليمي المناسب لك</p>
-                </a>
-                
-                <a href="questions.html" class="nav-card">
-                    <h3>اختبر نفسك</h3>
-                    <p>ابدأ اختبار المعرفة فوراً</p>
-                </a>
             </div>
         </section>
     </main>

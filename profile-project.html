@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية البرمجة - تعلم البرمجة والهاردوير</title>
-    <meta name="description" content="موقع تعليمي شامل للبرمجة والهاردوير باللغة العربية، مع دروس تفاعلية وأسئلة تقييم">
+    <title>صفحة التعريف الشخصي - أكاديمية البرمجة</title>
+    <meta name="description" content="صفحة ويب شخصية متكاملة لعرض السيرة الذاتية والمهارات والمشاريع">
     <style>
         /* Reset and Base Styles */
         * {
@@ -225,132 +225,188 @@
             color: var(--dark);
         }
 
-        /* Cards and Panels */
-        .card {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            transition: var(--transition);
-        }
-
-        .card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        /* Profile Styles */
+        .profile-container {
+            display: flex;
+            flex-wrap: wrap;
             gap: 2rem;
             margin-top: 2rem;
         }
 
-        .feature-card {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 2rem;
-            border-radius: 10px;
-            border: 1px solid var(--glass-border);
-            text-align: center;
-            transition: var(--transition);
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
-        .feature-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            box-shadow: var(--neon-glow);
+            background: linear-gradient(45deg, var(--dark), var(--darker));
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 3rem;
-            margin-bottom: 1rem;
             color: var(--primary);
         }
 
-        /* Navigation Cards */
-        .nav-cards {
+        .profile-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
             margin: 2rem 0;
         }
 
-        .nav-card {
+        .stat-card {
             background: rgba(0, 0, 0, 0.3);
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 10px;
             border: 1px solid var(--glass-border);
             text-align: center;
             transition: var(--transition);
-            text-decoration: none;
-            color: var(--text);
         }
 
-        .nav-card:hover {
-            border-color: var(--primary);
+        .stat-card:hover {
+            border-color: var(--accent);
             transform: translateY(-5px);
-            box-shadow: var(--neon-glow);
         }
 
-        .nav-card h3 {
-            margin-bottom: 1rem;
-            color: var(--accent);
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
         }
 
-        .nav-card p {
+        .stat-label {
             color: var(--text-secondary);
             font-size: 0.9rem;
         }
 
-        /* Roadmap */
-        .roadmap {
-            position: relative;
-            padding: 2rem 0;
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
 
-        .roadmap::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 50%;
-            transform: translateX(50%);
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, var(--primary), transparent);
-        }
-
-        .roadmap-item {
-            position: relative;
-            margin-bottom: 3rem;
-            width: 50%;
+        .skill-category {
+            background: rgba(0, 0, 0, 0.3);
             padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
         }
 
-        .roadmap-item:nth-child(odd) {
-            margin-right: auto;
+        .skill-category h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 0.5rem;
         }
 
-        .roadmap-item:nth-child(even) {
-            margin-left: auto;
+        .skill-item {
+            margin-bottom: 1rem;
         }
 
-        .roadmap-item::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 15px;
-            height: 15px;
-            background: var(--accent);
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-level {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 5px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.2rem;
         }
 
-        .roadmap-item:nth-child(odd)::before {
-            left: -7.5px;
-        }
-
-        .roadmap-item:nth-child(even)::before {
-            right: -7.5px;
+        .social-link:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: var(--neon-glow);
         }
 
         /* Footer */
@@ -366,23 +422,6 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1rem 0;
-        }
-
-        .social-links a {
-            color: var(--text);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            color: var(--primary);
         }
 
         /* Animations */
@@ -475,31 +514,17 @@
                 font-size: 1.5rem;
             }
 
-            .features-grid {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-stats {
                 grid-template-columns: 1fr;
             }
 
-            .nav-cards {
+            .skills-container {
                 grid-template-columns: 1fr;
-            }
-
-            .roadmap::before {
-                right: 20px;
-            }
-
-            .roadmap-item {
-                width: calc(100% - 40px);
-            }
-
-            .roadmap-item:nth-child(odd),
-            .roadmap-item:nth-child(even) {
-                margin-right: 0;
-                margin-left: auto;
-            }
-
-            .roadmap-item::before {
-                right: -7.5px;
-                left: auto;
             }
         }
 
@@ -554,173 +579,258 @@
     <main>
         <!-- Hero Section -->
         <section class="hero">
-            <h1 class="floating">أكاديمية البرمجة</h1>
-            <p>مرحباً بك في مستقبل التعليم التقني! موقع شامل لتعلم البرمجة والهاردوير باللغة العربية، مع دروس تفاعلية وأسئلة تقييم ومسارات تعليمية مخصصة.</p>
-            <a href="programming.html" class="btn btn-accent">ابدأ التعلم الآن</a>
+            <h1 class="floating">صفحة التعريف الشخصي</h1>
+            <p>صفحة ويب شخصية متكاملة لعرض سيرتك الذاتية ومهاراتك ومشاريعك بشكل احترافي</p>
         </section>
 
-        <!-- Navigation Cards Section -->
+        <!-- Profile Header -->
         <section>
-            <h2 class="text-center">استكشف الأكاديمية</h2>
-            <p class="text-center">انتقل بسهولة بين أقسام الموقع المختلفة لتبدأ رحلتك التعليمية</p>
-            
-            <div class="nav-cards">
-                <a href="programming.html" class="nav-card">
-                    <div class="feature-icon">💻</div>
-                    <h3>لغات البرمجة</h3>
-                    <p>تعلم أهم لغات البرمجة مع شروح مفصلة وأمثلة عملية</p>
-                    <div class="btn" style="margin-top: 1rem;">استكشف الآن</div>
-                </a>
-                
-                <a href="hardware.html" class="nav-card">
-                    <div class="feature-icon">🔧</div>
-                    <h3>الهاردوير</h3>
-                    <p>افهم مكونات الكمبيوتر وطريقة عملها وصيانتها</p>
-                    <div class="btn" style="margin-top: 1rem;">استكشف الآن</div>
-                </a>
-                
-                <a href="projects.html" class="nav-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>المشاريع</h3>
-                    <p>استكشف مشاريع برمجية عملية وتعلم من خلال التطبيق</p>
-                    <div class="btn" style="margin-top: 1rem;">استكشف الآن</div>
-                </a>
-                
-                <a href="learning-paths.html" class="nav-card">
-                    <div class="feature-icon">🗺️</div>
-                    <h3>المسارات التعليمية</h3>
-                    <p>اختر مسارك التعليمي المناسب لمستواك وأهدافك</p>
-                    <div class="btn" style="margin-top: 1rem;">استكشف الآن</div>
-                </a>
-                
-                <a href="questions.html" class="nav-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>الأسئلة التفاعلية</h3>
-                    <p>اختبر معرفتك من خلال أسئلة تفاعلية متنوعة</p>
-                    <div class="btn" style="margin-top: 1rem;">ابدأ الاختبار</div>
-                </a>
-                
-                <a href="about.html" class="nav-card">
-                    <div class="feature-icon">👤</div>
-                    <h3>من أنا</h3>
-                    <p>تعرف على مؤسس الأكاديمية وخبراته وطرق التواصل</p>
-                    <div class="btn" style="margin-top: 1rem;">تعرف أكثر</div>
-                </a>
+            <div class="profile-header">
+                <div class="profile-image">
+                    👨‍💻
+                </div>
+                <div class="profile-info">
+                    <h1>محمد صابر</h1>
+                    <h3>مطور ويب ومصمم واجهات مستخدم</h3>
+                    <p>مطور واجهات أمامية بخبرة تزيد عن 3 سنوات في تصميم وتطوير تطبيقات الويب التفاعلية. متخصص في HTML, CSS, JavaScript وتقنيات الويب الحديثة.</p>
+                    <div class="social-links">
+                        <a href="mailto:mohmedsaberooou@gmail.com" class="social-link">📧</a>
+                        <a href="https://www.facebook.com/share/1AQAeac5H7/" target="_blank" class="social-link">💼</a>
+                        <a href="https://wa.me/201127503669" target="_blank" class="social-link">📱</a>
+                    </div>
+                </div>
             </div>
-        </section>
 
-        <!-- Features Section -->
-        <section>
-            <h2 class="text-center">مميزات الأكاديمية</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">💻</div>
-                    <h3>تعلم البرمجة</h3>
-                    <p>دروس شاملة للغات البرمجة الرئيسية مع أمثلة عملية وتطبيقات حقيقية</p>
+            <div class="profile-stats">
+                <div class="stat-card">
+                    <span class="stat-number">3+</span>
+                    <span class="stat-label">سنوات خبرة</span>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔧</div>
-                    <h3>فهم الهاردوير</h3>
-                    <p>شرح مفصل لمكونات الكمبيوتر وصيانتها وطريقة عملها</p>
+                <div class="stat-card">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">مشروع مكتمل</span>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>اختبار المعرفة</h3>
-                    <p>أسئلة تفاعلية وتقييمات لقياس تقدمك في رحلة التعلم</p>
+                <div class="stat-card">
+                    <span class="stat-number">25+</span>
+                    <span class="stat-label">عميل راضي</span>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>مسارات تعليمية</h3>
-                    <p>خطط دراسية منظمة تناسب جميع المستويات والأهداف</p>
+                <div class="stat-card">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">تقنية متقنة</span>
                 </div>
             </div>
         </section>
 
-        <!-- Roadmap Section -->
+        <!-- About Section -->
         <section>
-            <h2 class="text-center">خارطة التعلم</h2>
-            <div class="roadmap">
-                <div class="roadmap-item">
-                    <h3>المرحلة الأولى: الأساسيات</h3>
-                    <p>تعلم أساسيات البرمجة، HTML، CSS، والمنطق البرمجي</p>
+            <h2>عنّي</h2>
+            <div class="profile-container">
+                <div style="flex: 1; min-width: 300px;">
+                    <h3>قصتي</h3>
+                    <p>بدأت رحلتي في البرمجة منذ 3 سنوات، حيث بدأت بتعلم أساسيات تطوير الويب ثم تخصصت في تطوير واجهات المستخدم. أحب تحويل الأفكار الإبداعية إلى واقع ملموس عبر الكود.</p>
+                    <p>أعمل حاليًا كمطور واجهات أمامية مستقبل، وأستمتع ببناء تجارب مستخدم استثنائية تجمع بين الجماليات والأداء المتميز.</p>
                 </div>
-                <div class="roadmap-item">
-                    <h3>المرحلة الثانية: البرمجة المتقدمة</h3>
-                    <p>تعمق في JavaScript، Python، وقواعد البيانات</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>المرحلة الثالثة: التخصص</h3>
-                    <p>اختر تخصصك: تطوير الويب، تطبيقات الموبايل، أو علم البيانات</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>المرحلة الرابعة: المشاريع</h3>
-                    <p>بناء مشاريع حقيقية وتطوير محفظة أعمالك</p>
+                <div style="flex: 1; min-width: 300px;">
+                    <h3>اهتماماتي</h3>
+                    <ul style="list-style-type: none; padding-right: 1rem;">
+                        <li style="margin-bottom: 0.5rem;">🎨 تصميم تجربة المستخدم</li>
+                        <li style="margin-bottom: 0.5rem;">🚀 تطوير تطبيقات الويب الحديثة</li>
+                        <li style="margin-bottom: 0.5rem;">📱 البرمجة للموبايل</li>
+                        <li style="margin-bottom: 0.5rem;">🎵 الاستماع إلى الموسيقى</li>
+                        <li style="margin-bottom: 0.5rem;">📚 القراءة والتعلم المستمر</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- AI Assistant Section -->
+        <!-- Skills Section -->
         <section>
-            <h2 class="text-center">مساعد الذكاء الاصطناعي</h2>
-            <div class="card glass text-center">
-                <h3>🤖 مساعد التعلم الذكي</h3>
-                <p>استفد من مساعد الذكاء الاصطناعي المدمج في الأكاديمية للحصول على:</p>
-                <ul style="text-align: right; margin: 1rem 0;">
-                    <li>إجابات فورية على استفساراتك البرمجية</li>
-                    <li>تصحيح الأخطاء في الكود وشرحها</li>
-                    <li>مقترحات لتحسين أداء التطبيقات</li>
-                    <li>توصيات شخصية لمحتوى تعليمي</li>
-                </ul>
-                <button class="btn mt-2">تفعيل المساعد الذكي</button>
+            <h2>المهارات التقنية</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>تطوير الواجهات الأمامية</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>HTML5</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>CSS3</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>JavaScript</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>React</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>تطوير الواجهات الخلفية</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Node.js</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Python</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>PHP</span>
+                            <span>65%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>MySQL</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>أدوات وتقنيات</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Git</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Figma</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Webpack</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Docker</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 60%"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
-        
-        <!-- Quick Navigation Section -->
+
+        <!-- Contact Section -->
         <section>
-            <h2 class="text-center">روابط سريعة</h2>
-            <p class="text-center">انتقل بسرعة إلى الأقسام الرئيسية في الموقع</p>
-            
-            <div class="nav-cards">
-                <a href="programming.html#javascript" class="nav-card">
-                    <h3>JavaScript</h3>
-                    <p>ابدأ بتعلم لغة البرمجة الأشهر لتطوير الويب</p>
-                </a>
-                
-                <a href="programming.html#python" class="nav-card">
-                    <h3>Python</h3>
-                    <p>تعلم لغة البرمجة متعددة الاستخدامات</p>
-                </a>
-                
-                <a href="hardware.html#cpu" class="nav-card">
-                    <h3>المعالج (CPU)</h3>
-                    <p>افهم عقل الكمبيوتر وكيف يعمل</p>
-                </a>
-                
-                <a href="projects.html" class="nav-card">
-                    <h3>المشاريع</h3>
-                    <p>استكشف مشاريع عملية لتطبيق ما تعلمته</p>
-                </a>
-                
-                <a href="learning-paths.html" class="nav-card">
-                    <h3>المسارات التعليمية</h3>
-                    <p>اختر المسار التعليمي المناسب لك</p>
-                </a>
-                
-                <a href="questions.html" class="nav-card">
-                    <h3>اختبر نفسك</h3>
-                    <p>ابدأ اختبار المعرفة فوراً</p>
-                </a>
+            <h2>تواصل معي</h2>
+            <div class="profile-container">
+                <div class="contact-form" style="flex: 1; min-width: 300px;">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">الاسم الكامل</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">البريد الإلكتروني</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">الموضوع</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">الرسالة</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">إرسال الرسالة</button>
+                    </form>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <h3>معلومات التواصل</h3>
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4>📧 البريد الإلكتروني</h4>
+                        <p>mohmedsaberooou@gmail.com</p>
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4>📱 الواتساب</h4>
+                        <p>+20 112 750 3669</p>
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4>💼 الفيسبوك</h4>
+                        <p>facebook.com/share/1AQAeac5H7/</p>
+                    </div>
+                    <div>
+                        <h4>⏰ أوقات العمل</h4>
+                        <p>الأحد - الخميس: 9 ص - 5 م</p>
+                    </div>
+                </div>
             </div>
+        </section>
+
+        <!-- Back to Projects Button -->
+        <section class="text-center">
+            <h3>استكشف المزيد من المشاريع</h3>
+            <p>يمكنك العودة إلى صفحة المشاريع الرئيسية لاستكشاف المزيد من المشاريع البرمجية والتعلم من خلال التطبيق العملي.</p>
+            <a href="projects.html" class="btn btn-accent mt-2">العودة إلى المشاريع</a>
         </section>
     </main>
 
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <p>© <span id="current-year"></span> Abo saber. جميع الحقوق محفوظة.</p>
+            <p>© <span id="current-year"></span> محمد صابر. جميع الحقوق محفوظة.</p>
             <div class="social-links">
                 <a href="about.html">من أنا</a>
-                <a href="https://www.facebook.com/share/1BffUMRMoa/" target="_blank">فيسبوك</a>
+                <a href="https://www.facebook.com/share/1AQAeac5H7/" target="_blank">فيسبوك</a>
                 <a href="https://wa.me/201127503669" target="_blank">واتساب</a>
             </div>
         </div>
@@ -739,21 +849,39 @@
             hamburger.classList.toggle('active');
         });
 
-        // Smooth Scrolling for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    // Close mobile menu if open
-                    navLinks.classList.remove('active');
+        // Contact Form Handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('شكراً لتواصلك! سنرد عليك في أقرب وقت ممكن.');
+            this.reset();
+        });
+
+        // Animate skill bars on scroll
+        const animateSkillBars = () => {
+            const skillBars = document.querySelectorAll('.skill-level');
+            skillBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        };
+
+        // Observe when skills section comes into view
+        const skillsSection = document.querySelector('.skills-container');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateSkillBars();
+                    observer.unobserve(entry.target);
                 }
             });
         });
+
+        if (skillsSection) {
+            observer.observe(skillsSection);
+        }
 
         // Cyber Canvas Animation
         const canvas = document.getElementById('cyberCanvas');
@@ -879,94 +1007,8 @@
             }
         }
 
-        class RobotArm {
-            constructor() {
-                this.reset();
-            }
-
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.segments = [];
-                this.angle = Math.random() * Math.PI * 2;
-                this.segmentCount = 3 + Math.floor(Math.random() * 3);
-                this.segmentLength = 30 + Math.random() * 40;
-                this.color = `hsl(${Math.random() * 60 + 300}, 100%, 70%)`;
-                this.speed = (Math.random() - 0.5) * 0.02;
-                
-                // Generate segments
-                for (let i = 0; i < this.segmentCount; i++) {
-                    this.segments.push({
-                        angle: Math.random() * Math.PI * 2,
-                        length: this.segmentLength * (0.8 + Math.random() * 0.4)
-                    });
-                }
-            }
-
-            update() {
-                this.angle += this.speed;
-                
-                // Reset if off screen
-                let endX = this.x;
-                let endY = this.y;
-                
-                for (const segment of this.segments) {
-                    endX += Math.cos(segment.angle + this.angle) * segment.length;
-                    endY += Math.sin(segment.angle + this.angle) * segment.length;
-                }
-                
-                if (endX < -100 || endX > canvas.width + 100 || 
-                    endY < -100 || endY > canvas.height + 100) {
-                    this.reset();
-                }
-            }
-
-            draw() {
-                ctx.save();
-                ctx.strokeStyle = this.color;
-                ctx.lineWidth = 3;
-                ctx.globalAlpha = 0.7;
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = this.color;
-                
-                let currentX = this.x;
-                let currentY = this.y;
-                
-                ctx.beginPath();
-                ctx.moveTo(currentX, currentY);
-                
-                // Draw arm segments
-                for (let i = 0; i < this.segments.length; i++) {
-                    const segment = this.segments[i];
-                    currentX += Math.cos(segment.angle + this.angle) * segment.length;
-                    currentY += Math.sin(segment.angle + this.angle) * segment.length;
-                    ctx.lineTo(currentX, currentY);
-                }
-                
-                ctx.stroke();
-                
-                // Draw joints
-                ctx.fillStyle = this.color;
-                currentX = this.x;
-                currentY = this.y;
-                
-                for (let i = 0; i < this.segments.length; i++) {
-                    const segment = this.segments[i];
-                    currentX += Math.cos(segment.angle + this.angle) * segment.length;
-                    currentY += Math.sin(segment.angle + this.angle) * segment.length;
-                    
-                    ctx.beginPath();
-                    ctx.arc(currentX, currentY, 4, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                
-                ctx.restore();
-            }
-        }
-
         const particles = Array.from({ length: 100 }, () => new Particle());
         const circuits = Array.from({ length: 8 }, () => new CircuitLine());
-        const robotArms = Array.from({ length: 3 }, () => new RobotArm());
 
         function animate() {
             ctx.fillStyle = 'rgba(5, 5, 16, 0.1)';
@@ -999,11 +1041,6 @@
             circuits.forEach(circuit => {
                 circuit.update();
                 circuit.draw();
-            });
-
-            robotArms.forEach(arm => {
-                arm.update();
-                arm.draw();
             });
 
             animationId = requestAnimationFrame(animate);

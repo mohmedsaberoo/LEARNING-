@@ -1,0 +1,32 @@
+/* أنماط مشتركة لجميع الصفحات */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #00f3ff;
+    --secondary: #ff00ff;
+    --accent: #00ff88;
+    --dark: #0a0a1a;
+    --darker: #050510;
+    --text: #e0e0ff;
+    --text-secondary: #a0a0c0;
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--darker);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* باقي الأنماط المشتركة... */
